@@ -1,1 +1,1 @@
-export { default } from './toast-view'
+export { default } from './toast-redux'

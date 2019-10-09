@@ -64,6 +64,18 @@ router.post('/users/login', (req, res, next) => {
 //-----------------------------------------------------------------------
 
 router.post('/users', (req, res, next) => {
+  if (!req.body.user.username) {
+    return res.status(422).json({ errors: { username: "can't be blank" } })
+  }
+  if (!req.body.user.email) {
+    return res.status(422).json({ errors: { email: "can't be blank" } })
+  }
+  if (!req.body.user.password) {
+    return res.status(422).json({ errors: { password: "can't be blank" } })
+  }
+  if (!(req.body.user.confirm === req.body.user.password)) {
+    return res.status(422).json({ errors: { password: "must match" } })
+  }
   var user = new User()
   user.username = req.body.user.username
   user.email = req.body.user.email

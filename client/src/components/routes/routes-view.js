@@ -3,11 +3,11 @@ import { Route, Switch } from 'react-router-dom'
 import Home from '../home'
 import Post from '../post'
 import Editor from '../editor'
-import Login from '../login'
 import Profile from '../profile'
 import Favorites from '../favorites'
-import Register from '../register'
 import Settings from '../settings'
+import Login from '../auth/login'
+import Register from '../auth/register'
 
 import Private from './routes-private'
 

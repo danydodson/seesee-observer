@@ -1,5 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import Errors from '../toast'
 
 import Dropzone from '../form/dropzone'
 import Checkbox from '../form/checkbox'
@@ -137,6 +138,8 @@ class Editor extends React.Component {
     return (
       <div className='editor-page'>
 
+        <Errors errors={this.props.errors} />
+        
         {this.props.medium === ''
           ? null
           : <Dropzone

@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux'
 import { connectRouter } from 'connected-react-router'
+import toast from './components/toast/toast-reducer'
 import app from './components/app/app-reducer'
 import auth from './components/auth/auth-reducer'
 import home from './components/home/home-reducer'
@@ -11,6 +12,7 @@ import post from './components/post/post-reducer'
 import settings from './components/settings/settings-reducer'
 
 export default (history) => combineReducers({
+  toast: toast,
   app: app,
   auth: auth,
   home: home,

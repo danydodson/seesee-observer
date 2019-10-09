@@ -14,8 +14,8 @@ import {
   DROPZONE_MEDIA_UPLOADED,
   DROPZONE_MEDIA_PROGRESS,
   DROPZONE_MEDIA_DELETED,
-  TOAST_SUCCESS_NOTIFICATION,
-  TOAST_ERROR_NOTIFICATION,
+  TOAST_SUCCESS,
+  TOAST_ERROR,
 } from '../../../actions'
 
 import {
@@ -36,9 +36,9 @@ const mapDispatchToProps = dispatch => ({
   onDelete: (payload, publicId) =>
     dispatch({ type: DROPZONE_MEDIA_DELETED, payload, publicId }),
   onToastSuccess: success =>
-    dispatch({ type: TOAST_SUCCESS_NOTIFICATION, success }),
+    dispatch({ type: TOAST_SUCCESS, success }),
   onToastError: error =>
-    dispatch({ type: TOAST_ERROR_NOTIFICATION, error }),
+    dispatch({ type: TOAST_ERROR, error }),
 })
 
 class Dropzone extends React.Component {

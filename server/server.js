@@ -1,7 +1,6 @@
 const express = require('express')
 const session = require('express-session')
 const errorhandler = require('errorhandler')
-
 const logger = require('./logs/logger.js')
 const chalk = require('chalk')
 const mongoose = require('mongoose')
@@ -62,11 +61,9 @@ if (!PROD) {
     console.error(chalk.red(err.stack))
     res.status(err.status || 500)
     res.json({
-      'errors': {
-        message: err.message,
-        error: err
-      }
+      'errors': { message: err.message, error: err }
     })
+    // next()
   })
 }
 
@@ -76,10 +73,10 @@ app.use(function (err, req, res, next) {
   res.status(err.status || 500)
   res.json({
     'errors': {
-      message: err.message,
-      error: {}
+      message: err.message, error: {}
     }
   })
+  // next()
 })
 
 app.listen(PORT, () => console.info(chalk.blue((`[express] port: ${PORT} ✓`))))

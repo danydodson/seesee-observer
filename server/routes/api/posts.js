@@ -3,8 +3,8 @@ const mongoose = require('mongoose')
 const Post = mongoose.model('Post')
 const Comment = mongoose.model('Comment')
 const User = mongoose.model('User')
-const chalk = require('chalk')
 const auth = require('../auth/auth-token')
+// const chalk = require('chalk')
 // const CLOUD_KEY = require('./config').CLOUD_KEY
 // const CLOUD_SECRET = require('../../config').CLOUD_SECRET
 
@@ -136,7 +136,9 @@ router.get('/feed', auth.required, (req, res, next) => {
 
 router.post('/', auth.required, (req, res, next) => {
   User.findById(req.payload.id).then(user => {
-    if (!user) return res.sendStatus(401)
+    if (!user) {
+      return res.sendStatus(401)
+    }
     let post = new Post(req.body.post)
     post.author = user
     return post.save().then(() => {
