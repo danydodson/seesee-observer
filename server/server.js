@@ -1,5 +1,5 @@
 const express = require('express')
-const bodyParser = require('body-parser')
+// const bodyParser = require('body-parser')
 const session = require('express-session')
 const errorhandler = require('errorhandler')
 
@@ -30,8 +30,9 @@ mongoose.connect(MONGO_URI, {
 app.use(cors())
 app.use(logger())
 app.use(errorhandler())
-app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({ extended: false }))
+app.use(express.json({ extended: false }))
+// app.use(bodyParser.json())
+// app.use(bodyParser.urlencoded({ extended: false }))
 app.use(express.static(__dirname + '/public'))
 app.use(require('method-override')())
 

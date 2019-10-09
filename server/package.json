@@ -7,10 +7,10 @@
   "scripts": {
     "start": "node server.js",
     "server": "nodemon server.js",
-    "prod": "NODE_ENV=production node server.js"
+    "prod": "NODE_ENV=production node server.js",
+    "test": "newman run ./tests/api-tests.postman.json -e ./tests/env-api-tests.postman.json"
   },
   "dependencies": {
-    "body-parser": "^1.19.0",
     "chalk": "^2.4.2",
     "colors": "^1.4.0",
     "cors": "^2.8.5",
@@ -21,8 +21,6 @@
     "express-session": "^1.16.2",
     "jsonwebtoken": "^8.5.1",
     "method-override": "^3.0.0",
-    "methods": "^1.1.2",
-    "minimist": "^1.2.0",
     "mongoose": "^5.7.3",
     "mongoose-unique-validator": "^2.0.3",
     "morgan": "^1.9.1",
@@ -30,8 +28,7 @@
     "passport-local": "^1.0.0",
     "request": "^2.88.0",
     "rotating-file-stream": "^1.4.4",
-    "slug": "^1.1.0",
-    "underscore": "^1.9.1"
+    "slug": "^1.1.0"
   },
   "devDependencies": {
     "newman": "^4.5.5"

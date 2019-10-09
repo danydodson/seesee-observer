@@ -3,6 +3,7 @@
 /server/config/env-dev.js
 /server/logs/*.log
 /server/node_modules
+/server/public/samples
 /.vscode
 
 /client/.env
