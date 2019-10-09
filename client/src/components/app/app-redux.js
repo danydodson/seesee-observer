@@ -1,5 +1,5 @@
 import React from 'react'
-import { Route, Switch } from 'react-router-dom'
+import { Route } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { store } from '../../store'
 import { push } from 'connected-react-router'
@@ -10,16 +10,8 @@ import { CLOUD_NAME, CLOUD_PRESET } from '../../configs'
 import FontsLoader from '../../helpers/load-fonts'
 import Styles from './app-styles'
 
-import Private from '../private'
 import Header from '../header'
-import Home from '../home'
-import Post from '../post'
-import Editor from '../editor'
-import Login from '../login'
-import Profile from '../profile'
-import Favorites from '../favorites'
-import Register from '../register'
-import Settings from '../settings'
+import Routes from '../routes'
 
 import agent from '../../agent'
 
@@ -76,19 +68,9 @@ class App extends React.Component {
             appName={this.props.appName}
             currentUser={this.props.currentUser}
             onClickLogout={this.props.onClickLogout} />
-          <Switch>
-            <Route exact path="/" component={Home} />
-            <Route path="/login" component={Login} />
-            <Route path="/register" component={Register} />
-            <Private path="/editor/:slug" component={Editor} />
-            <Private path="/editor" component={Editor} />
-            <Route path="/post/:id" component={Post} />
-            <Private path="/settings" component={Settings} />
-            <Route path="/@:username/favorites" component={Favorites} />
-            <Route path="/@:username" component={Profile} />
-          </Switch>
+          <Route component={Routes} />
           <Styles />
-        </CloudinaryContext>
+        </CloudinaryContext >
       )
     }
     return (
