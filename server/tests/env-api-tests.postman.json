@@ -4,7 +4,7 @@
   "values": [{
     "enabled": true,
     "key": "apiUrl",
-    "value": "http://localhost:4100/api",
+    "value": "http://localhost:5060/api",
     "type": "text"
   }],
   "timestamp": 1505871382668,
