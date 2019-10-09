@@ -1,0 +1,10 @@
+/assets
+/server/.env
+/server/config/env-dev.js
+/server/logs/*.log
+/server/node_modules
+/.vscode
+
+/client/.env
+/client/node_modules
+/client/build

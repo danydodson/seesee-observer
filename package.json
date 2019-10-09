@@ -1,0 +1,21 @@
+{
+  "name": "seesee",
+  "version": "1.0.0",
+  "description": "Social network for local artists",
+  "main": "./server/server.js",
+  "author": "Dany Dodson",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DanyDodson/seesee"
+  },
+  "license": "ISC",
+  "scripts": {
+    "start": "cd ./server && node ./server/server.js",
+    "build": "cd ./client && npm run build",
+    "server": "cd ./server && nodemon ./server.js",
+    "client": "cd ./client && npm run start",
+    "test": "cd ./server && newman run ./tests/api-tests.postman.json -e ./tests/env-api-tests.postman.json",
+    "lint": "eslint client/src/**/*.js src/**/*.jsx",
+    "prod": "NODE_ENV=production node ./server/server.js"
+  }
+}
