@@ -13,8 +13,7 @@ import Private from './routes-private'
 
 const Routes = () => {
   return (
-    <section className='container'>
-      {/* <Alert /> */}
+    <main className='main-routes'>
       <Switch>
         <Route exact path="/" component={Home} />
         <Route path="/login" component={Login} />
@@ -25,9 +24,8 @@ const Routes = () => {
         <Private path="/editor" component={Editor} />
         <Private path="/settings" component={Settings} />
         <Private path="/editor/:slug" component={Editor} />
-        {/* <Route component={NotFound} /> */}
       </Switch>
-    </section>
+    </main>
   )
 }
 

@@ -11,11 +11,11 @@ const masonryOptions = {
 const Posts = props => {
 
   if (!props.posts) {
-    return <article className='pp'>Loading...</article>
+    return <article className='posts'>Loading...</article>
   }
 
   if (props.posts.length === 0) {
-    return <article className='pp'>No posts... yet.</article>
+    return <article className='posts'>No posts... yet.</article>
   }
 
   const masonry = ({ className }) => (

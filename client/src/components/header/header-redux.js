@@ -1,16 +1,5 @@
 import React, { Fragment } from 'react'
-
-import { Head } from './styles/header-styles'
-import { List } from './styles/header-styles'
-import { Item } from './styles/header-styles'
-import { Ruller } from './styles/header-styles'
-import { LnkTo } from './styles/header-styles'
-import { IcoLink } from './styles/header-styles'
-import { Image } from './styles/header-styles'
-import { IcoImg } from './styles/header-styles'
-
-import Title from './title'
-import Search from './search'
+import { Link } from 'react-router-dom'
 
 import Kebab from './styles/kabob-icon'
 import Gear from './styles/gear-icon'
@@ -20,59 +9,73 @@ import Heart from './styles/heart-icon'
 import Archive from './styles/archive-icon'
 import Magnifier from './styles/search-icon'
 
+import Title from './title'
+import Search from './search'
+
 const Visitor = (
   <Fragment>
-    <Item><LnkTo to="/login">{`Sign in`}</LnkTo></Item>
-    <Item><LnkTo to="/register">{`Sign up`}</LnkTo></Item>
+    <li className='nav-item'>
+      <Link className='nav-link' to="/login">{`Sign in`}</Link>
+    </li>
+    <li className='nav-item'>
+      <Link className='nav-link' to="/register">{`Sign up`}</Link>
+    </li>
   </Fragment>
 )
 
 const IsAuth = props => {
   return (
-    <List>
+    <ul className='nav-list'>
 
-      <IcoLink to='/'><Archive size='30px' title='Mediums' /></IcoLink>
-      <IcoLink to='/editor'><Pencil size='30px' title='Upload' /></IcoLink>
-      <IcoLink to='/'><Magnifier size='30px' title='Search' /></IcoLink>
-      <IcoLink to='/@danydodson'><Heart size='30px' title='Show some love' /></IcoLink>
+      <Link className='icon-link' to='/'><Archive size='30px' title='Mediums' /></Link>
+      <Link className='icon-link' to='/editor'><Pencil size='30px' title='Upload' /></Link>
+      <Link className='icon-link' to='/'><Magnifier size='30px' title='Search' /></Link>
+      <Link className='icon-link' to='/@danydodson'><Heart size='30px' title='Show some love' /></Link>
       {
         props.currentUser
           ?
-          (<IcoLink to='/settings'><Gear size='30px' title='Settings' /></IcoLink>) :
-          (<IcoLink to='/login'><Gear size='30px' title='Login' /></IcoLink>)
+          (<Link className='icon-link' to='/settings'><Gear size='30px' title='Settings' /></Link>) :
+          (<Link className='icon-link' to='/login'><Gear size='30px' title='Login' /></Link>)
       }
-      <Item><LnkTo to="/">{`Mediums`}</LnkTo></Item>
-      <Item><LnkTo to="/">{`Tags`}</LnkTo></Item>
-      <Item><Kebab title='Droptions' size='20px' /></Item>
-      <Ruller />
+      <li className='nav-item'>
+        <Link className='nav-link' to="/">{`Mediums`}</Link>
+      </li>
+      <li className='nav-item'>
+        <Link className='nav-link' to="/">{`Tags`}</Link>
+      </li>
+      <li className='nav-item'><Kebab title='Droptions' size='20px' /></li>
+      <li className='ruller' />
       {
         props.currentUser
           ?
           (<Fragment>
-            <Item><LnkTo to='/editor'>{`Create`}</LnkTo></Item>
-            <Item><Logout title='Logout' size='20px' onClick={props.onClickLogout} /></Item>
-            <IcoImg>
-              <LnkTo to={`/@${props.currentUser.username}`}>
-                <Image src={props.currentUser.image} alt={props.currentUser.username} />
-              </LnkTo>
-            </IcoImg>
+            <li className='nav-item'>
+              <Link className='nav-link' to='/editor'>{`Create`}</Link>
+            </li>
+            <li className='nav-item'><Logout title='Logout' size='20px' onClick={props.onClickLogout} /></li>
+            <li className='icon-image'>
+              <Link className='nav-link'
+                to={`/@${props.currentUser.username}`}>
+                <img className='user-img' src={props.currentUser.image} alt={props.currentUser.username} />
+              </Link>
+            </li>
           </Fragment>
           ) : Visitor
       }
-    </List>
+    </ul>
   )
 }
 
 class Header extends React.Component {
   render() {
     return (
-      <Head>
+      <header>
         <Title appName={this.props.appName} />
         <Search />
         <IsAuth
           currentUser={this.props.currentUser}
           onClickLogout={this.props.onClickLogout} />
-      </Head>
+      </header>
     )
   }
 }

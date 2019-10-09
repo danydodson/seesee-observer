@@ -55,7 +55,7 @@ class Login extends React.Component {
     const password = this.props.password
 
     return (
-      <div style={{ paddingTop: 80 }}>
+      <div className='login-page'>
 
         <h1>Sign In</h1>
 

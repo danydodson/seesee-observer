@@ -73,7 +73,8 @@ class SettingsForm extends React.Component {
   render() {
 
     return (
-      <form onSubmit={this.submitForm}>
+      <form className='settings-page'
+        onSubmit={this.submitForm}>
         <fieldset>
 
           <fieldset className="form-group">

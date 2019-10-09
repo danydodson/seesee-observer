@@ -1,11 +1,13 @@
 import React from 'react'
-import { Title } from './title-styles'
+import { Link } from 'react-router-dom'
 
 const AppName = ({ appName }) => {
   return (
-    <Title to="/">
+    <Link
+      className='title-link'
+      to="/" >
       {appName.toLowerCase()}
-    </Title>
+    </Link >
   )
 }
 

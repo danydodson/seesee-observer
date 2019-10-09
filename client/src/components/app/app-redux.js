@@ -7,12 +7,11 @@ import { push } from 'connected-react-router'
 import { CloudinaryContext } from 'cloudinary-react'
 import { CLOUD_NAME, CLOUD_PRESET } from '../../configs'
 
-import FontsLoader from '../../helpers/load-fonts'
+import Fonts from '../../helpers/load-fonts'
 import Styles from './app-styles'
 
 import Header from '../header'
 import Routes from '../routes'
-
 import agent from '../../agent'
 
 import {
@@ -39,9 +38,12 @@ const mapDispatchToProps = dispatch => ({
     dispatch({ type: APP_REDIRECT_LOCATION }),
 })
 
+// Fonts()
+
 class App extends React.Component {
 
   UNSAFE_componentWillReceiveProps(nextProps) {
+    Fonts()
     if (nextProps.redirectTo) {
       store.dispatch(push(nextProps.redirectTo))
       this.props.onRedirect()
@@ -54,11 +56,12 @@ class App extends React.Component {
     this.props.onLoad(token ? agent.Auth.current() : null, token)
   }
 
-  componentDidMount() {
-    FontsLoader()
-  }
+  // componentDidMount() {
+  //   Fonts()
+  // }
 
   render() {
+
     if (this.props.appLoaded) {
       return (
         <CloudinaryContext

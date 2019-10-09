@@ -3,8 +3,6 @@ import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import agent from '../../agent'
 
-import { RegWrap } from './register-styles'
-
 import {
   REGISTER_FORM_LOADED,
   AUTH_UPDATE_FIELD,
@@ -56,7 +54,7 @@ class Register extends React.Component {
     const password = this.props.password
     const username = this.props.username
     return (
-      <RegWrap>
+      <div className='register-page'>
         <h1>{'Sign Up'}</h1>
         <Link to="/login">{'Have an account?'}</Link>
 
@@ -99,7 +97,7 @@ class Register extends React.Component {
 
           </fieldset>
         </form>
-      </RegWrap>
+      </div>
     )
   }
 }

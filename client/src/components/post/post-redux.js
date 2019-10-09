@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import React from 'react'
 import { connect } from 'react-redux'
 import PostMeta from './post-meta'
 import Comments from './comment'
@@ -51,7 +51,7 @@ class Post extends React.Component {
     const fm = this.props.post.uploads[0].format
 
     return (
-      <Fragment>
+      <div className='post-page'>
 
         <h1>{this.props.post.title}</h1>
 
@@ -86,7 +86,7 @@ class Post extends React.Component {
           slug={this.props.match.params.id}
           currentUser={this.props.currentUser} />
 
-      </Fragment>
+      </div>
     )
   }
 }

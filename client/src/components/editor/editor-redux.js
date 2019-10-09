@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import React from 'react'
 import { connect } from 'react-redux'
 
 import Dropzone from '../form/dropzone'
@@ -102,7 +102,7 @@ class Editor extends React.Component {
 
       const final = this.createSigned('public_id=' + post.title + '&timestamp=' + this.getVersion(post) + CLOUD_SECRET)
       post.signature = final
-      
+
       const slug = { slug: this.props.slug }
       const promise = this.props.slug
         ? agent.Posts.update(Object.assign(post, slug))
@@ -135,7 +135,7 @@ class Editor extends React.Component {
   render() {
 
     return (
-      <Fragment>
+      <div className='editor-page'>
 
         {this.props.medium === ''
           ? null
@@ -217,7 +217,7 @@ class Editor extends React.Component {
           </button>
         </form>
 
-      </Fragment>
+      </div>
     )
   }
 }
