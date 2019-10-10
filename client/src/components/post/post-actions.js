@@ -2,7 +2,6 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { GoTrashcan } from "react-icons/go"
-import Signed from '../../helpers/sign-request'
 import agent from '../../agent'
 
 import {
@@ -20,17 +19,8 @@ const mapDispatchToProps = dispatch => ({
 const PostActions = props => {
   const post = props.post
 
-  const id = post.uploads[0].public_id
-  const time = post.uploads[0].version
-
   const del = () => {
-    const payload = agent.Uploads.delete(Signed(id, time), removePost.bind(this))
-    props.onDeleteUpload(payload)
-  }
-
-  const removePost = () => {
     props.onClickDelete(agent.Posts.del(post.slug))
-    console.log('done')
   }
 
   if (props.canModify) {

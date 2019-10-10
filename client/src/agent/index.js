@@ -6,7 +6,6 @@ import Mediums from './agent-mediums'
 import Profile from './agent-profiles'
 import Posts from './agent-posts'
 import Comments from './agent-comments'
-import Uploads from './agent-uploads'
 
 import { LOCAL_API } from '../configs'
 
@@ -35,5 +34,5 @@ export const requests = {
 }
 
 export default {
-  Auth, Tags, Mediums, Profile, Posts, Comments, Uploads, setToken: _token => { token = _token }
+  Auth, Tags, Mediums, Profile, Posts, Comments, setToken: _token => { token = _token }
 }

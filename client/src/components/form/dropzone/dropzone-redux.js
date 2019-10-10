@@ -1,10 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import Signed from '../../../helpers/sign-request'
 import DropzoneView from './dropzone-view'
 import request from 'superagent'
-import agent from '../../../agent'
-import crypto from 'crypto'
 
 import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
@@ -20,7 +17,6 @@ import {
 
 import {
   CLOUD_UPLOAD,
-  CLOUD_SECRET,
   CLOUD_KEY,
 } from '../../../configs'
 
@@ -100,18 +96,6 @@ class Dropzone extends React.Component {
       : this.toastError(`${ev.dataTransfer.files[0].type} is not a supported format\n`)
   }
 
-  setTimestamp = () => {
-    const millisecondsToSeconds = 1000;
-    return Math.round(Date.now() / millisecondsToSeconds)
-  }
-
-  setSignature = params =>
-    crypto
-      .createHash('sha1')
-      .update(params, 'utf8')
-      .digest('hex')
-
-
   onUpload(files) {
     for (let file of files) {
       const title = this.props.title
@@ -121,7 +105,6 @@ class Dropzone extends React.Component {
       const auth_email = this.props.app.currentUser.email
       const auth_name = this.props.app.currentUser.username
       const eager = 'c_fit,w_100|c_fit,w_200|c_fit,w_300|c_fit,w_400|c_fit,w_500|c_fit,w_600|c_fit,w_700|c_fit,w_800|c_fit,w_900|c_fit,w_1000|c_fit,w_1100|c_fit,w_1200|c_fit,w_1296|c_fit,w_1400|c_fit,w_1600|c_fit,w_1800|c_fit,w_2000'
-      const sign = this.setSignature('context=author_email=' + auth_email + '|author_name=' + auth_name + '&eager=' + eager + '&eager_async=true&folder=' + folder + '&invalidate=true&public_id=' + title + '&tags=' + folder + '&timestamp=' + time + CLOUD_SECRET)
       request
         .post(CLOUD_UPLOAD)
         .field('file', file)
@@ -131,7 +114,6 @@ class Dropzone extends React.Component {
         .field('eager_async', true)
         .field('folder', folder)
         .field('api_key', CLOUD_KEY)
-        .field('signature', sign)
         .field('multiple', true)
         .field('invalidate', true)
         .field('tags', [`${folder}`])
@@ -165,18 +147,6 @@ class Dropzone extends React.Component {
     this.props.onUpProgress({ id: id, fileName: fileName, response: response, })
     this.props.onUploaded([response.body])
     this.toastSuccess(`Your photo was uploaded\n`)
-  }
-
-  deleteUpload = () => {
-    const id = this.props.uploads[0].public_id
-    const time = this.props.uploads[0].version
-    const payload = agent.Uploads.delete(Signed(id, time), this.onDeleteUpload.bind(this))
-    this.props.onDelete(payload, id)
-  }
-
-  onDeleteUpload = () => {
-    this.props.onDelete(this.props.uploads[0].public_id)
-    this.toastSuccess(`your upload was deleted\n`)
   }
 
   render() {

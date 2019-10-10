@@ -38,12 +38,9 @@ const mapDispatchToProps = dispatch => ({
     dispatch({ type: APP_REDIRECT_LOCATION }),
 })
 
-// Fonts()
-
 class App extends React.Component {
 
   UNSAFE_componentWillReceiveProps(nextProps) {
-    Fonts()
     if (nextProps.redirectTo) {
       store.dispatch(push(nextProps.redirectTo))
       this.props.onRedirect()
@@ -51,6 +48,7 @@ class App extends React.Component {
   }
 
   UNSAFE_componentWillMount() {
+    Fonts()
     const token = window.localStorage.getItem('jwt')
     if (token) agent.setToken(token)
     this.props.onLoad(token ? agent.Auth.current() : null, token)

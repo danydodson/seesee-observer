@@ -1,6 +1,5 @@
 import {
   SETTINGS_FORM_SAVED,
-  SETTINGS_FORM_UNLOADED,
   APP_ASYNC_START,
   APP_ASYNC_END,
 } from '../../actions'
@@ -14,17 +13,15 @@ export default (state = {}, action) => {
         inProgress: false,
         errors: action.error
           ? action.payload.errors
-          : null
+          : undefined
       }
 
-    case SETTINGS_FORM_UNLOADED:
-      return {}
 
     case APP_ASYNC_START:
       return { ...state, inProgress: true }
 
     case APP_ASYNC_END:
-      return { ...state, inProgress: false }
+      return { ...state, inProgress: undefined }
 
     default:
       return state

@@ -3,8 +3,7 @@ var uniqueValidator = require('mongoose-unique-validator')
 var crypto = require('crypto')
 var jwt = require('jsonwebtoken')
 var SECRET = require('../config').SECRET
-
-var DEFAULT_IMAGE = `https://res.cloudinary.com/seesee/image/upload/c_scale,h_200,w_200/v1569294732/sample.webp`
+var DEFAULT_IMAGE = require('../config').DEFAULT_IMAGE
 
 var UserSchema = new mongoose.Schema({
   bio: String,
@@ -37,7 +36,6 @@ var UserSchema = new mongoose.Schema({
 },
   { timestamps: true }
 )
-
 
 UserSchema.plugin(uniqueValidator, { message: 'is already taken.' })
 

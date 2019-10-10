@@ -4,9 +4,16 @@ const Post = mongoose.model('Post')
 const Comment = mongoose.model('Comment')
 const User = mongoose.model('User')
 const auth = require('../auth/auth-token')
-// const chalk = require('chalk')
-// const CLOUD_KEY = require('./config').CLOUD_KEY
-// const CLOUD_SECRET = require('../../config').CLOUD_SECRET
+const cloudinary = require('cloudinary').v2
+
+const CLOUD_NAME = require('../../config').CLOUD_NAME
+const CLOUD_KEY = require('../../config').CLOUD_KEY
+const CLOUD_SECRET = require('../../config').CLOUD_SECRET
+
+//-----------------------------------------------------------------------
+// Cloudinary
+
+cloudinary.config({ cloud_name: CLOUD_NAME, api_key: CLOUD_KEY, api_secret: CLOUD_SECRET, })
 
 //-----------------------------------------------------------------------
 // Preload post objects on routes with ':post'
@@ -33,10 +40,9 @@ router.param('comment', (req, res, next, id) => {
 })
 
 //-----------------------------------------------------------------------
+// query all mediums and tags
 
 router.get('/', auth.optional, (req, res, next) => {
-
-  // query all mediums and tags
 
   let query = {}
   let limit = 20
@@ -213,15 +219,28 @@ router.put('/:post', auth.required, (req, res, next) => {
 // delete post
 
 router.delete('/:post', auth.required, (req, res, next) => {
+
   User.findById(req.payload.id).then(user => {
-    if (!user) return res.sendStatus(401)
-    if (req.post.author._id.toString() === req.payload.id.toString()) {
-      return Comment.deleteMany({ post: { $eq: req.post.id } }).then(() => {
-        return req.post.remove().then(() => res.sendStatus(204))
-      })
-    } else {
-      return res.sendStatus(403)
+
+    if (!user) {
+      return res.sendStatus(401)
     }
+
+    if (req.post.author._id.toString() === req.payload.id.toString()) {
+
+      return cloudinary.api.delete_resources([`${req.post.uploads[0].public_id}`], function () { })
+        .then(() => {
+          return Comment.deleteMany({ post: { $eq: req.post.id } })
+            .then(() => {
+              return req.post.remove()
+                .then(() => {
+                  res.sendStatus(204)
+                })
+            })
+        })
+    }
+    else { return res.sendStatus(403) }
+
   }).catch(next)
 })
 

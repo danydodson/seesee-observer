@@ -5,7 +5,6 @@ import agent from '../../agent'
 import {
   AUTH_USER_DELETE,
   SETTINGS_FORM_SAVED,
-  SETTINGS_FORM_UNLOADED,
 } from '../../actions'
 
 const mapStateToProps = state => ({
@@ -18,8 +17,6 @@ const mapDispatchToProps = dispatch => ({
     dispatch({ type: AUTH_USER_DELETE, payload: agent.Auth.delete(user) }),
   onSubmitForm: user =>
     dispatch({ type: SETTINGS_FORM_SAVED, payload: agent.Auth.save(user) }),
-  onUnload: () =>
-    dispatch({ type: SETTINGS_FORM_UNLOADED }),
 })
 
 class SettingsForm extends React.Component {
