@@ -179,6 +179,35 @@ const GlobalStyle = createGlobalStyle`
     padding-top: 60px;
   }
 
+  /** mediums nav ------------------------------------------------*/
+  
+  nav.mediums-list {
+    width: 100%;
+    padding: 0 16px;
+    padding-top: 70px;
+    position: fixed;
+    display: flex;
+    overflow: auto;
+    background-color: #fff;
+    z-index: 10;
+    -ms-overflow-style: none;
+    overflow: -moz-scrollbars-none;
+    scrollbar-width: none;
+    box-shadow: 0 4px 12px rgba(0,0,0,.08), 0 0 1px rgba(1,0,0,.1);
+    &::-webkit-scrollbar,
+    ::-webkit-scrollbar {
+      width: 0 !important;
+      height: 0 !important;
+    }
+  }
+
+  button.medium-link {
+    padding-bottom: 15px;
+    font-size: 16px;
+    font-family: 'Didact Gothic';
+    margin: 0 1rem 0 0;
+  }
+
   /** top margin ------------------------------------------------*/
   
   .profile-page{padding-top: 80px}
@@ -187,6 +216,35 @@ const GlobalStyle = createGlobalStyle`
   .login-page{padding-top: 80px}
   .register-page{padding-top: 80px}
   .settings-page{padding-top: 80px}
+
+  /** Post Previews ------------------------------------------------*/
+
+  figure.post-preview {
+    margin: .8rem 0 .8rem 0;
+
+    @media (min-width: 768px) { 
+      margin: .8rem; 
+    }
+
+    &:before {
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+
+      margin: .8rem 0 .8rem 0;
+      background: rgba(0,0,0,0);
+
+      opacity: 0;
+      transition: .3s;
+      position: absolute;
+      content: "";
+
+      @media (min-width: 768px) {
+        margin: .8rem; 
+      }
+    }
+  }
 
   /** Posts ------------------------------------------------*/
   

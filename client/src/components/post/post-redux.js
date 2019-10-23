@@ -10,7 +10,7 @@ import { CLOUD_DELIVERY } from '../../configs'
 import {
   POST_ITEM_LOADED,
   POST_ITEM_UNLOADED
-} from '../../actions'
+} from '../../actions/constants'
 
 const mapStateToProps = state => ({
   ...state.post,

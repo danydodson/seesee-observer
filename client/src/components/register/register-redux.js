@@ -6,30 +6,30 @@ import { connect } from 'react-redux'
 // import { toast } from 'react-toastify'
 // import 'react-toastify/dist/ReactToastify.css'
 
-import Errors from '../../toast'
+import Errors from '../toast'
 
-import agent from '../../../agent'
+import agent from '../../agent'
 
 import {
   REGISTER_FORM_LOADED,
-  AUTH_UPDATE_FIELD,
+  REGISTER_UPDATE_FIELD,
   AUTH_USER_REGISTER,
   REGISTER_FORM_UNLOADED
-} from '../../../actions'
+} from '../../actions/constants'
 
-const mapStateToProps = state => ({ ...state.auth })
+const mapStateToProps = state => ({ ...state.register })
 
 const mapDispatchToProps = dispatch => ({
   onLoad: () =>
     dispatch({ type: REGISTER_FORM_LOADED }),
   onChangeUsername: value =>
-    dispatch({ type: AUTH_UPDATE_FIELD, key: 'username', value }),
+    dispatch({ type: REGISTER_UPDATE_FIELD, key: 'username', value }),
   onChangeEmail: value =>
-    dispatch({ type: AUTH_UPDATE_FIELD, key: 'email', value }),
+    dispatch({ type: REGISTER_UPDATE_FIELD, key: 'email', value }),
   onChangePassword: value =>
-    dispatch({ type: AUTH_UPDATE_FIELD, key: 'password', value }),
+    dispatch({ type: REGISTER_UPDATE_FIELD, key: 'password', value }),
   onChangeConfirm: value =>
-    dispatch({ type: AUTH_UPDATE_FIELD, key: 'confirm', value }),
+    dispatch({ type: REGISTER_UPDATE_FIELD, key: 'confirm', value }),
   onUnload: () =>
     dispatch({ type: REGISTER_FORM_UNLOADED }),
   onSubmit: (username, email, password, confirm) => {
@@ -122,7 +122,7 @@ class Register extends React.Component {
             <button
               // onClick={this.notifyError}
               className=''
-              type="submit"
+              type='submit'
               disabled={this.props.inProgress}>
               {'Sign up'}
             </button>

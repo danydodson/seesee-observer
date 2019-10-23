@@ -7,7 +7,7 @@ import React from 'react'
 
 // import {
 //   TOAST_ADD,
-// } from '../../actions'
+// } from '../../actions/constants'
 
 // const mapStateToProps = state => ({ toast: state.toast })
 

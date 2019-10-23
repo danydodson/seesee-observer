@@ -8,7 +8,7 @@ import {
   HOME_PAGE_LOADED,
   SET_MEDIUM_FILTER,
   HOME_PAGE_UNLOADED,
-} from '../../actions'
+} from '../../actions/constants'
 
 const Promise = global.Promise
 

@@ -17,7 +17,7 @@ import {
   EDITOR_FORM_UNLOADED,
   PROFILE_FAVORITES_UNLOADED,
 
-} from '../../actions'
+} from '../../actions/constants'
 
 const defaultState = {
   appName: 'SeeSee',

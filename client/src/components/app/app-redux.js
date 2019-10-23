@@ -8,7 +8,7 @@ import { CloudinaryContext } from 'cloudinary-react'
 import { CLOUD_NAME, CLOUD_PRESET } from '../../configs'
 
 import Fonts from '../../helpers/load-fonts'
-import Styles from './app-styles'
+import Styles from '../../styles'
 
 import Header from '../header'
 import Routes from '../routes'
@@ -18,7 +18,7 @@ import {
   APP_LOAD,
   AUTH_USER_LOGOUT,
   APP_REDIRECT_LOCATION
-} from '../../actions'
+} from '../../actions/constants'
 
 const mapStateToProps = state => {
   return {
@@ -53,10 +53,6 @@ class App extends React.Component {
     if (token) agent.setToken(token)
     this.props.onLoad(token ? agent.Auth.current() : null, token)
   }
-
-  // componentDidMount() {
-  //   Fonts()
-  // }
 
   render() {
 

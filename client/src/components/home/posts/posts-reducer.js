@@ -11,7 +11,7 @@ import {
   PROFILE_PAGE_UNLOADED,
   PROFILE_FAVORITES_LOADED,
   PROFILE_FAVORITES_UNLOADED
-} from '../../../actions'
+} from '../../../actions/constants'
 
 export default (state = {}, action) => {
   switch (action.type) {

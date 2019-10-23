@@ -5,7 +5,7 @@ import agent from '../../agent'
 import {
   AUTH_USER_DELETE,
   SETTINGS_FORM_SAVED,
-} from '../../actions'
+} from '../../actions/constants'
 
 const mapStateToProps = state => ({
   ...state.settings,

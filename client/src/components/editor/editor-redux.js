@@ -1,12 +1,13 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { ToastContainer } from 'react-toastify'
 import Errors from '../toast'
 
-import Dropzone from '../form/dropzone'
-import Checkbox from '../form/checkbox'
-import TextArea from '../form/textarea'
-import Select from '../form/select'
-import Input from '../form/input'
+import Dropzone from './dropzone'
+import Checkbox from '../shared/checkbox'
+import TextArea from '../shared/textarea'
+import Select from '../shared/select'
+import Input from '../shared/input'
 
 import agent from '../../agent'
 import crypto from 'crypto'
@@ -23,7 +24,7 @@ import {
   EDITOR_TEXT_FIELD_UPDATE,
   EDITOR_CHECKBOX_SWITCHED,
   EDITOR_POST_SUBMITTED,
-} from '../../actions'
+} from '../../actions/constants'
 
 const mapStateToProps = state => ({ ...state, ...state.editor })
 
@@ -138,8 +139,10 @@ class Editor extends React.Component {
     return (
       <div className='editor-page'>
 
+        <ToastContainer />
+
         <Errors errors={this.props.errors} />
-        
+
         {this.props.medium === ''
           ? null
           : <Dropzone

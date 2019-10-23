@@ -7,7 +7,7 @@ import {
   EDITOR_CHECKBOX_SWITCHED,
   EDITOR_TAG_ADDED,
   EDITOR_TAG_REMOVED,
-} from '../../actions'
+} from '../../actions/constants'
 
 export default (state = {}, action) => {
   switch (action.type) {

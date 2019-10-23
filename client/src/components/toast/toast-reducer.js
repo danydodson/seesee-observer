@@ -3,7 +3,7 @@ import {
   // TOAST_SUCCESS, 
   TOAST_ADD,
   TOAST_REMOVE,
-} from '../../actions'
+} from '../../actions/constants'
 
 export default (state = {}, action) => {
 

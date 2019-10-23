@@ -7,7 +7,7 @@ import PostsFeed from './posts-feed'
 import { PageTablist } from './styles/ul-pagetab'
 import { PageTabItem } from './styles/li-pagetab'
 
-import { SET_VIEW_TAB } from '../../../actions'
+import { SET_VIEW_TAB } from '../../../actions/constants'
 
 const mapStateToProps = state => ({
   ...state.posts,

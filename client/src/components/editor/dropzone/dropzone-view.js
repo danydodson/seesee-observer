@@ -13,15 +13,15 @@ const Dropzone = ({
   loading,
 }) => {
 
-  const previews = uploads.map((upload, id) => (
+  const previews = uploads.map((upload) => (
     !upload === upload ?
       null
       : (
-        <figure>
+        <figure
+          key={upload}>
           <img
             draggable={false}
             width='100'
-            key={id}
             src={upload.url}
             alt={upload.url}
             onClick={onClick} />

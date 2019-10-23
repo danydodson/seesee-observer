@@ -1,28 +1,26 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-import Errors from '../../toast'
-
-import Input from '../../form/input'
-
-import agent from '../../../agent'
+import Errors from '../toast'
+import Input from '../shared/input'
+import agent from '../../agent'
 
 import {
   LOGIN_FORM_LOADED,
   AUTH_USER_LOGIN,
-  AUTH_UPDATE_FIELD,
+  LOGIN_UPDATE_FIELD,
   LOGIN_FORM_UNLOADED
-} from '../../../actions'
+} from '../../actions/constants'
 
-const mapStateToProps = state => ({ ...state.auth })
+const mapStateToProps = state => ({ ...state.login })
 
 const mapDispatchToProps = dispatch => ({
   onLoad: () =>
     dispatch({ type: LOGIN_FORM_LOADED }),
   onChangeEmail: value =>
-    dispatch({ type: AUTH_UPDATE_FIELD, key: 'email', value }),
+    dispatch({ type: LOGIN_UPDATE_FIELD, key: 'email', value }),
   onChangePassword: value =>
-    dispatch({ type: AUTH_UPDATE_FIELD, key: 'password', value }),
+    dispatch({ type: LOGIN_UPDATE_FIELD, key: 'password', value }),
   onSubmit: (email, password) =>
     dispatch({ type: AUTH_USER_LOGIN, payload: agent.Auth.login(email, password) }),
   onUnload: () =>
@@ -78,7 +76,7 @@ class Login extends React.Component {
             value={password}
             onChange={this.changePassword} />
           <button
-            className="btn btn-lg btn-primary pull-xs-right"
+            className=''
             disabled={this.props.inProgress}
             type="submit">
             {'Sign in'}

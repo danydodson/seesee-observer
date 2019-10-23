@@ -10,7 +10,7 @@ import Archive from './styles/archive-icon'
 import Magnifier from './styles/search-icon'
 
 import Title from './title'
-import Search from './search'
+import Search from '../search'
 
 const Visitor = (
   <Fragment>
@@ -67,11 +67,17 @@ const IsAuth = props => {
 }
 
 class Header extends React.Component {
+  onSearchChange = (ev) => {
+    console.log(ev.target.value)
+  }
+
   render() {
     return (
       <header>
-        <Title appName={this.props.appName} />
-        <Search />
+        <Title
+          appName={this.props.appName} />
+        <Search
+          searchChange={this.onSearchChange} />
         <IsAuth
           currentUser={this.props.currentUser}
           onClickLogout={this.props.onClickLogout} />

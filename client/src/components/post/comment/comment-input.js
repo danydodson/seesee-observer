@@ -4,7 +4,7 @@ import agent from '../../../agent'
 
 import {
   POST_ITEM_ADD_COMMENT
-} from '../../../actions'
+} from '../../../actions/constants'
 
 const mapDispatchToProps = dispatch => ({
   onSubmit: payload =>

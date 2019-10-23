@@ -4,7 +4,7 @@ import {
   AUTH_USER_LOGIN,
   AUTH_USER_LOGOUT,
   AUTH_USER_REGISTER,
-} from '../actions'
+} from '../actions/constants'
 
 import agent from '../agent'
 

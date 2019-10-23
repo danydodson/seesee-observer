@@ -15,8 +15,13 @@ const CLOUD_SECRET = require('../../config').CLOUD_SECRET
 
 cloudinary.config({ cloud_name: CLOUD_NAME, api_key: CLOUD_KEY, api_secret: CLOUD_SECRET, })
 
-//-----------------------------------------------------------------------
-// Preload post objects on routes with ':post'
+/**
+ * -----------------------------------------------------------------------
+ * @route    Parameter Map api/post
+ * @desc     Preload post objects on routes with ':post'
+ * @access   Public
+ * -----------------------------------------------------------------------
+*/
 
 router.param('post', (req, res, next, slug) => {
   Post.findOne({ slug: slug })
@@ -142,9 +147,7 @@ router.get('/feed', auth.required, (req, res, next) => {
 
 router.post('/', auth.required, (req, res, next) => {
   User.findById(req.payload.id).then(user => {
-    if (!user) {
-      return res.sendStatus(401)
-    }
+    if (!user) return res.sendStatus(401)
     let post = new Post(req.body.post)
     post.author = user
     return post.save().then(() => {
@@ -153,8 +156,13 @@ router.post('/', auth.required, (req, res, next) => {
   }).catch(next)
 })
 
-//-----------------------------------------------------------------------
-// return a post
+/**
+ * -----------------------------------------------------------------------
+ * @route    GET api/post/:slug
+ * @desc     Return a post
+ * @access   Auth Optional
+ * -----------------------------------------------------------------------
+*/
 
 router.get('/:post', auth.optional, (req, res, next) => {
   Promise.all([
@@ -215,33 +223,38 @@ router.put('/:post', auth.required, (req, res, next) => {
   })
 })
 
-//-----------------------------------------------------------------------
-// delete post
+/**
+ * -----------------------------------------------------------------------
+ * @route    DELETE api/post/:slug
+ * @desc     Delete a post
+ * @access   Private
+ * -----------------------------------------------------------------------
+*/
 
-router.delete('/:post', auth.required, (req, res, next) => {
+router.delete('/:post', auth.required, async (req, res, next) => {
 
-  User.findById(req.payload.id).then(user => {
+  try {
+
+    const user = await User.findById(req.payload.id)
 
     if (!user) {
       return res.sendStatus(401)
     }
 
-    if (req.post.author._id.toString() === req.payload.id.toString()) {
-
-      return cloudinary.api.delete_resources([`${req.post.uploads[0].public_id}`], function () { })
-        .then(() => {
-          return Comment.deleteMany({ post: { $eq: req.post.id } })
-            .then(() => {
-              return req.post.remove()
-                .then(() => {
-                  res.sendStatus(204)
-                })
-            })
-        })
+    if (req.post.author._id.toString() !== req.payload.id.toString()) {
+      return res.sendStatus(401)
     }
-    else { return res.sendStatus(403) }
 
-  }).catch(next)
+    await cloudinary.api.delete_resources([`${req.post.uploads[0].public_id}`], () => { })
+    await Comment.deleteMany({ post: { $eq: req.post.id } })
+    await req.post.remove()
+
+    res.sendStatus(204)
+
+  } catch (err) {
+    res.sendStatus(403)
+    return next
+  }
 })
 
 //-----------------------------------------------------------------------

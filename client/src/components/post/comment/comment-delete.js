@@ -4,7 +4,7 @@ import agent from '../../../agent'
 
 import {
   POST_ITEM_DELETE_COMMENT
-} from '../../../actions'
+} from '../../../actions/constants'
 
 const mapDispatchToProps = dispatch => ({
   onClick: (payload, commentId) =>

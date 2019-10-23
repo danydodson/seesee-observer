@@ -1,7 +1,7 @@
 import React from 'react'
 import agent from '../../../agent'
 import { connect } from 'react-redux'
-import { SET_VIEW_PAGE_ } from '../../../actions'
+import { SET_VIEW_PAGE_ } from '../../../actions/constants'
 
 const mapDispatchToProps = dispatch => ({
   onSetPage: (page, payload) =>

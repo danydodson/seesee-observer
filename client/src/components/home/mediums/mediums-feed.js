@@ -1,18 +1,12 @@
 import React from 'react'
 import agent from '../../../agent'
-import Loading from '../../form/loading'
-import styled from 'styled-components'
-import { MediumList, MediumLinks } from './mediums-styles'
-
-const MediumLink = styled.button`
-  ${MediumLinks}
-`
+import Loading from '../../shared/loading'
 
 const Mediums = props => {
   const mediums = props.mediums
   if (mediums) {
     return (
-      <MediumList>
+      <nav className='mediums-list'>
         {mediums.map(medium => {
           const handleClick = e => {
             e.preventDefault()
@@ -22,14 +16,15 @@ const Mediums = props => {
             )
           }
           return (
-            <MediumLink
+            <button
               key={medium}
+              className='medium-link'
               onClick={handleClick}>
               {medium}
-            </MediumLink>
+            </button>
           )
         })}
-      </MediumList>
+      </nav>
     )
   } else {
     return <Loading />

@@ -14,14 +14,14 @@
   "dependencies": {
     "cloudinary-react": "^1.2.1",
     "connected-react-router": "^6.5.2",
-    "dotenv": "^8.1.0",
+    "dotenv": "^8.2.0",
     "fontfaceobserver": "^2.1.0",
     "history": "^4.10.1",
     "marked": "^0.7.0",
     "node-sass": "^4.12.0",
     "prop-types": "^15.7.2",
-    "react": "^16.10.2",
-    "react-dom": "^16.10.2",
+    "react": "^16.11.0",
+    "react-dom": "^16.11.0",
     "react-helmet": "^5.2.1",
     "react-icons": "^3.7.0",
     "react-masonry-component": "^6.2.1",
@@ -32,9 +32,10 @@
     "redux-devtools-extension": "^2.13.8",
     "redux-logger": "^3.0.6",
     "styled-components": "^4.4.0",
-    "styled-icons": "^8.5.1",
+    "styled-icons": "^8.6.0",
     "superagent": "^5.1.0",
-    "superagent-promise": "^1.1.0"
+    "superagent-promise": "^1.1.0",
+    "tachyons": "^4.11.1"
   },
   "devDependencies": {
     "cross-env": "^5.2.1",

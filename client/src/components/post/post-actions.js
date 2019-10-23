@@ -6,14 +6,14 @@ import agent from '../../agent'
 
 import {
   POST_ITEM_DELETE_POST,
-  DROPZONE_MEDIA_DELETED,
-} from '../../actions'
+  DROPZONE_DELETE_UPLOAD,
+} from '../../actions/constants'
 
 const mapDispatchToProps = dispatch => ({
   onClickDelete: payload =>
     dispatch({ type: POST_ITEM_DELETE_POST, payload }),
-  onDeleteUpload: (payload) =>
-    dispatch({ type: DROPZONE_MEDIA_DELETED, payload }),
+  onDeleteUpload: payload =>
+    dispatch({ type: DROPZONE_DELETE_UPLOAD, payload }),
 })
 
 const PostActions = props => {

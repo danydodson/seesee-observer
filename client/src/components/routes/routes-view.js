@@ -6,8 +6,8 @@ import Editor from '../editor'
 import Profile from '../profile'
 import Favorites from '../favorites'
 import Settings from '../settings'
-import Login from '../auth/login'
-import Register from '../auth/register'
+import Login from '../login'
+import Register from '../register'
 
 import Private from './routes-private'
 

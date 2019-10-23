@@ -1,17 +1,14 @@
 import {
   APP_ASYNC_START,
   AUTH_USER_LOGIN,
-  AUTH_USER_REGISTER,
-  AUTH_UPDATE_FIELD,
+  LOGIN_UPDATE_FIELD,
   LOGIN_FORM_UNLOADED,
-  REGISTER_FORM_UNLOADED,
-} from '../../actions'
+} from '../../actions/constants'
 
 export default (state = {}, action) => {
   switch (action.type) {
 
     case AUTH_USER_LOGIN:
-    case AUTH_USER_REGISTER:
       return {
         ...state,
         inProgress: false,
@@ -19,16 +16,18 @@ export default (state = {}, action) => {
       }
 
     case LOGIN_FORM_UNLOADED:
-    case REGISTER_FORM_UNLOADED:
       return {}
 
     case APP_ASYNC_START:
-      if (action.subtype === AUTH_USER_LOGIN || action.subtype === AUTH_USER_REGISTER) {
-        return { ...state, inProgress: true }
+      if (action.subtype === AUTH_USER_LOGIN) {
+        return {
+          ...state,
+          inProgress: true
+        }
       }
       break
 
-    case AUTH_UPDATE_FIELD:
+    case LOGIN_UPDATE_FIELD:
       return { ...state, [action.key]: action.value }
 
     default:
