@@ -1,64 +1,75 @@
 import React, { Fragment } from 'react'
 import { Link } from 'react-router-dom'
 
-import Kebab from './styles/kabob-icon'
-import Gear from './styles/gear-icon'
-import Logout from './styles/arrow-icon'
-import Pencil from './styles/pencil-icon'
-import Heart from './styles/heart-icon'
-import Archive from './styles/archive-icon'
-import Magnifier from './styles/search-icon'
-
 import Title from './title'
 import Search from '../search'
 
 const Visitor = (
   <Fragment>
-    <li className='nav-item'>
-      <Link className='nav-link' to="/login">{`Sign in`}</Link>
+    <li className=''>
+      <Link className='link mid-gray hover-near-black' to="/login">{`Sign in`}</Link>
     </li>
-    <li className='nav-item'>
-      <Link className='nav-link' to="/register">{`Sign up`}</Link>
+
+    <li className=''>
+      <Link className='link mid-gray hover-near-black' to="/register">{`Sign up`}</Link>
     </li>
   </Fragment>
 )
 
 const IsAuth = props => {
   return (
-    <ul className='nav-list'>
-
-      <Link className='icon-link' to='/'><Archive size='30px' title='Mediums' /></Link>
-      <Link className='icon-link' to='/editor'><Pencil size='30px' title='Upload' /></Link>
-      <Link className='icon-link' to='/'><Magnifier size='30px' title='Search' /></Link>
-      <Link className='icon-link' to='/@danydodson'><Heart size='30px' title='Show some love' /></Link>
+    <ul className='flex list pl0 items-center justify-between'>
       {
         props.currentUser
           ?
-          (<Link className='icon-link' to='/settings'><Gear size='30px' title='Settings' /></Link>) :
-          (<Link className='icon-link' to='/login'><Gear size='30px' title='Login' /></Link>)
+          (<Link className='f5 link mid-gray hover-near-black' to='/settings'>{'Settings'}</Link>)
+          :
+          (<Link className='f5 link mid-gray hover-near-black' to='/login'>{'Login'}</Link>)
       }
-      <li className='nav-item'>
-        <Link className='nav-link' to="/">{`Mediums`}</Link>
+
+      <li className=''>
+        <Link className='f5 link mid-gray hover-near-black' to="/">{`Mediums`}</Link>
       </li>
-      <li className='nav-item'>
-        <Link className='nav-link' to="/">{`Tags`}</Link>
+
+      <li className=''>
+        <Link className='f5 link mid-gray hover-near-black' to="/">{`Tags`}</Link>
       </li>
-      <li className='nav-item'><Kebab title='Droptions' size='20px' /></li>
+
       <li className='ruller' />
+
       {
         props.currentUser
           ?
           (<Fragment>
-            <li className='nav-item'>
-              <Link className='nav-link' to='/editor'>{`Create`}</Link>
-            </li>
-            <li className='nav-item'><Logout title='Logout' size='20px' onClick={props.onClickLogout} /></li>
-            <li className='icon-image'>
-              <Link className='nav-link'
-                to={`/@${props.currentUser.username}`}>
-                <img className='user-img' src={props.currentUser.image} alt={props.currentUser.username} />
+            <li className=''>
+              <Link
+                className='f5 link mid-gray hover-near-black'
+                to='/editor'>
+                {`Create`}
               </Link>
             </li>
+
+            <li className=''>
+              <button
+                title='Logout'
+                onClick={props.onClickLogout} >
+                {'logout'}
+              </button>
+            </li>
+
+            <li className=''>
+              <Link
+                className='f5 link mid-gray hover-near-black'
+                to={`/@${props.currentUser.username}`}>
+                <img
+                  width='30'
+                  height='30'
+                  className=''
+                  src={props.currentUser.image}
+                  alt={props.currentUser.username} />
+              </Link>
+            </li>
+
           </Fragment>
           ) : Visitor
       }
@@ -73,7 +84,7 @@ class Header extends React.Component {
 
   render() {
     return (
-      <header>
+      <header className='flex items-center justify-between'>
         <Title
           appName={this.props.appName} />
         <Search

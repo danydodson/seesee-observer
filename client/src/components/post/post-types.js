@@ -1,0 +1,8 @@
+export const POST_ITEM_LOADED = '@@post/ITEM_LOADED'
+export const POST_ITEM_UNLOADED = '@@post/ITEM_UNLOADED'
+export const POST_ITEM_FAVORITED = '@@post/ITEM_FAVORITED'
+export const POST_ITEM_UNFAVORITED = '@@post/ITEM_UNFAVORITED'
+export const POST_ITEM_ADD_COMMENT = '@@post/ITEM_ADD_COMMENT'
+export const POST_ITEM_DELETE_COMMENT = '@@post/ITEM_DELETE_COMMENT'
+export const POST_ITEM_DELETE_POST = '@@post/ITEM_DELETE_POST'
+export const POST_ITEM_DELETE_UPLOAD = '@@post/ITEM_DELETE_UPLOAD'

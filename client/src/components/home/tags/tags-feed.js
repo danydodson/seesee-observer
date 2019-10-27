@@ -1,20 +1,13 @@
 import React from 'react'
-// import agent from '../../../middleware/middle-agent'
 import agent from '../../../agent'
 import Loading from '../../loading'
-import styled from 'styled-components'
-import { TagList, TagLinks } from './tags-styles'
-
-const TagLink = styled.button`
-  ${TagLinks}
-`
 
 const Tags = props => {
   const tags = props.tags
 
   if (tags) {
     return (
-      <TagList>
+      <ul>
         {tags.map(tag => {
           const handleClick = e => {
             e.preventDefault()
@@ -24,14 +17,14 @@ const Tags = props => {
             )
           }
           return (
-            <TagLink
+            <button
               key={tag}
               onClick={handleClick}>
               {tag}
-            </TagLink>
+            </button>
           )
         })}
-      </TagList>
+      </ul>
     )
   } else {
     return <Loading />

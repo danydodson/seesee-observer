@@ -1,0 +1,5 @@
+export const REGISTER_FORM_LOADED = '@@register/FORM_LOADED'
+export const REGISTER_FORM_UNLOADED = '@@register/FORM_UNLOADED'
+export const REGISTER_UPDATE_FIELD = '@@register/UPDATE_FIELD'
+export const REGISTER_USER_REGISTER = '@@register/USER_REGISTER'
+export const REGISTER_USER_DELETE = '@@register/USER_DELETE'

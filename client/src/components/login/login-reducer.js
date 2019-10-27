@@ -1,14 +1,17 @@
 import {
   APP_ASYNC_START,
-  AUTH_USER_LOGIN,
+} from '../app/app-types'
+
+import {
+  LOGIN_USER_LOGIN,
   LOGIN_UPDATE_FIELD,
   LOGIN_FORM_UNLOADED,
-} from '../../actions/constants'
+} from './login-types'
 
 export default (state = {}, action) => {
   switch (action.type) {
 
-    case AUTH_USER_LOGIN:
+    case LOGIN_USER_LOGIN:
       return {
         ...state,
         inProgress: false,
@@ -19,7 +22,7 @@ export default (state = {}, action) => {
       return {}
 
     case APP_ASYNC_START:
-      if (action.subtype === AUTH_USER_LOGIN) {
+      if (action.subtype === LOGIN_USER_LOGIN) {
         return {
           ...state,
           inProgress: true

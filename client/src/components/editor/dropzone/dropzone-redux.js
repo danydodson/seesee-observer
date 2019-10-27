@@ -10,14 +10,17 @@ import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
 import {
+  TOAST_SUCCESS,
+  TOAST_ERROR,
+} from '../../toast/toast-types'
+
+import {
   DROPZONE_INPUT_ZONE_LOADED,
   DROPZONE_INPUT_ZONE_UNLOADED,
   DROPZONE_MEDIA_UPLOADED,
   DROPZONE_MEDIA_PROGRESS,
   DROPZONE_DELETE_UPLOAD,
-  TOAST_SUCCESS,
-  TOAST_ERROR,
-} from '../../../actions/constants'
+} from './dropzone-types'
 
 import {
   CLOUD_UPLOAD,

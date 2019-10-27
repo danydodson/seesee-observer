@@ -1,21 +1,18 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import agent from '../../agent'
+import Agent from '../../agent'
 import Mediums from './mediums'
 import Posts from './posts'
 
-import {
-  HOME_PAGE_LOADED,
-  SET_MEDIUM_FILTER,
-  HOME_PAGE_UNLOADED,
-} from '../../actions/constants'
+import { APP_MEDIUM_FILTER, } from '../app/app-types'
+
+import { HOME_PAGE_LOADED, HOME_PAGE_UNLOADED, } from './home-types'
 
 const Promise = global.Promise
 
 const mapStateToProps = state => ({
   ...state.home,
   appName: state.app.appName,
-  dropActive: state.app.dropActive,
   token: state.app.token
 })
 
@@ -23,7 +20,7 @@ const mapDispatchToProps = dispatch => ({
   onLoad: (tab, pager, payload) =>
     dispatch({ type: HOME_PAGE_LOADED, tab, pager, payload }),
   onClickMedium: (medium, pager, payload) =>
-    dispatch({ type: SET_MEDIUM_FILTER, medium, pager, payload }),
+    dispatch({ type: APP_MEDIUM_FILTER, medium, pager, payload }),
   onUnload: () =>
     dispatch({ type: HOME_PAGE_UNLOADED }),
 })
@@ -36,13 +33,13 @@ class Home extends React.Component {
       : 'all'
 
     const postsPromise = this.props.token
-      ? agent.Posts.feed
-      : agent.Posts.all
+      ? Agent.Posts.feed
+      : Agent.Posts.all
 
     this.props.onLoad(
       tab,
       postsPromise,
-      Promise.all([agent.Mediums.getAll(),
+      Promise.all([Agent.Mediums.getAll(),
       postsPromise()]))
   }
 
@@ -54,7 +51,7 @@ class Home extends React.Component {
 
     return (
 
-      <main className="home-page Status">
+      <div className="home-page">
         {/* <Banner
           token={this.props.token}
           appName={this.props.appName} /> */}
@@ -68,7 +65,7 @@ class Home extends React.Component {
           onClickMedium={this.props.onClickMedium} />
 
         <Posts />
-      </main>
+      </div>
     )
   }
 }

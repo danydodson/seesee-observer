@@ -1,14 +1,17 @@
 import {
   APP_ASYNC_START,
-  AUTH_USER_REGISTER,
+} from '../app/app-types'
+
+import {
+  REGISTER_USER_REGISTER,
   REGISTER_UPDATE_FIELD,
   REGISTER_FORM_UNLOADED,
-} from '../../actions/constants'
+} from './register-types'
 
 export default (state = {}, action) => {
   switch (action.type) {
 
-    case AUTH_USER_REGISTER:
+    case REGISTER_USER_REGISTER:
       return {
         ...state,
         inProgress: false,
@@ -19,7 +22,7 @@ export default (state = {}, action) => {
       return {}
 
     case APP_ASYNC_START:
-      if (action.subtype === AUTH_USER_REGISTER) {
+      if (action.subtype === REGISTER_USER_REGISTER) {
         return { ...state, inProgress: true }
       }
       break

@@ -6,8 +6,11 @@ import agent from '../../agent'
 
 import {
   POST_ITEM_DELETE_POST,
+} from './post-types'
+
+import {
   DROPZONE_DELETE_UPLOAD,
-} from '../../actions/constants'
+} from '../editor/dropzone/dropzone-types'
 
 const mapDispatchToProps = dispatch => ({
   onClickDelete: payload =>

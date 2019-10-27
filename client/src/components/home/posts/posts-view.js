@@ -1,13 +1,9 @@
 import React, { Fragment } from 'react'
 import { connect } from 'react-redux'
-
 import agent from '../../../agent'
-
 import PostsFeed from './posts-feed'
-import { PageTablist } from './styles/ul-pagetab'
-import { PageTabItem } from './styles/li-pagetab'
 
-import { SET_VIEW_TAB } from '../../../actions/constants'
+import { APP_VIEW_TAB } from '../../app/app-types'
 
 const mapStateToProps = state => ({
   ...state.posts,
@@ -17,7 +13,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   onTabClick: (tab, pager, payload) =>
-    dispatch({ type: SET_VIEW_TAB, tab, pager, payload })
+    dispatch({ type: APP_VIEW_TAB, tab, pager, payload })
 })
 
 const YourFeedTab = props => {
@@ -27,13 +23,13 @@ const YourFeedTab = props => {
       props.onTabClick('feed', agent.Posts.feed, agent.Posts.feed())
     }
     return (
-      <PageTabItem>
+      <li>
         <button href=""
           className={props.tab === 'feed' ? '' : ''}
           onClick={clickHandler}>
           {'Your Feed'}
         </button>
-      </PageTabItem>
+      </li>
     )
   }
   return null
@@ -45,32 +41,32 @@ const GlobalFeedTab = props => {
     props.onTabClick('all', agent.Posts.all, agent.Posts.all())
   }
   return (
-    <PageTabItem>
+    <li>
       <button
         href=""
         className={props.tab === 'all' ? 'nav-link active' : 'nav-link'}
         onClick={clickHandler}>
         {'Global Feed'}
       </button>
-    </PageTabItem>
+    </li>
   )
 }
 
 const TagFilterTab = props => {
   if (!props.tag) return null
   return (
-    <PageTabItem>
+    <li>
       <button href="" className="nav-link active">
         <i className="ion-pound"></i> {props.tag}
       </button>
-    </PageTabItem>
+    </li>
   )
 }
 
 const MainView = props => {
   return (
     <Fragment>
-      <PageTablist>
+      <ul>
         <YourFeedTab
           token={props.token}
           tab={props.tab}
@@ -80,7 +76,7 @@ const MainView = props => {
           onTabClick={props.onTabClick} />
         <TagFilterTab
           tag={props.tag} />
-      </PageTablist>
+      </ul>
       <PostsFeed
         pager={props.pager}
         posts={props.posts}

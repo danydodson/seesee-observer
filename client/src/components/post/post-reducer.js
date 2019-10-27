@@ -1,9 +1,12 @@
 import {
   POST_ITEM_LOADED,
   POST_ITEM_UNLOADED,
+} from './post-types'
+
+import {
   POST_ITEM_ADD_COMMENT,
   POST_ITEM_DELETE_COMMENT,
-} from '../../actions/constants'
+} from './post-types'
 
 export default (state = {}, action) => {
   switch (action.type) {

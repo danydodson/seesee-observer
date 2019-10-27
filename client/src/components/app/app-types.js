@@ -1,0 +1,8 @@
+export const APP_LOAD = '@@app/LOAD'
+export const APP_ASYNC_START = '@@app/ASYNC_START'
+export const APP_ASYNC_END = '@@app/ASYNC_END'
+export const APP_REDIRECT_LOCATION = '@@app/REDIRECT_LOCATION'
+export const APP_VIEW_TAB = '@@app/SET_VIEW_TAB'
+export const APP_VIEW_PAGE_ = '@@app/SET_VIEW_PAGE_'
+export const APP_TAG_FILTER = '@@app/SET_TAG_FILTER'
+export const APP_MEDIUM_FILTER = '@@app/SET_MEDIUM_FILTER'

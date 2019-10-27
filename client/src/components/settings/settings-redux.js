@@ -3,9 +3,12 @@ import { connect } from 'react-redux'
 import agent from '../../agent'
 
 import {
-  AUTH_USER_DELETE,
   SETTINGS_FORM_SAVED,
-} from '../../actions/constants'
+} from './settings-types'
+
+import {
+  REGISTER_USER_DELETE,
+} from '../register/register-types'
 
 const mapStateToProps = state => ({
   ...state.settings,
@@ -14,7 +17,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   deleteUser: user =>
-    dispatch({ type: AUTH_USER_DELETE, payload: agent.Auth.delete(user) }),
+    dispatch({ type: REGISTER_USER_DELETE, payload: agent.Auth.delete(user) }),
   onSubmitForm: user =>
     dispatch({ type: SETTINGS_FORM_SAVED, payload: agent.Auth.save(user) }),
 })

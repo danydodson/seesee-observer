@@ -1,8 +1,11 @@
 import {
-  SETTINGS_FORM_SAVED,
   APP_ASYNC_START,
   APP_ASYNC_END,
-} from '../../actions/constants'
+} from '../app/app-types'
+
+import {
+  SETTINGS_FORM_SAVED,
+} from './settings-types'
 
 export default (state = {}, action) => {
   switch (action.type) {

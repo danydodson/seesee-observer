@@ -1,10 +1,15 @@
 import {
   APP_ASYNC_START,
   APP_ASYNC_END,
-  AUTH_USER_LOGIN,
-  AUTH_USER_LOGOUT,
-  AUTH_USER_REGISTER,
-} from '../actions/constants'
+} from '../components/app/app-types'
+
+import {
+  REGISTER_USER_REGISTER,
+} from '../components/register/register-types'
+
+import {
+  LOGIN_USER_LOGIN, LOGIN_USER_LOGOUT
+} from '../components/login/login-types'
 
 import agent from '../agent'
 
@@ -46,12 +51,12 @@ const promiseMiddleware = store => next => action => {
 }
 
 const localStorageMiddleware = store => next => action => {
-  if (action.type === AUTH_USER_REGISTER || action.type === AUTH_USER_LOGIN) {
+  if (action.type === REGISTER_USER_REGISTER || action.type === LOGIN_USER_LOGIN) {
     if (!action.error) {
       window.localStorage.setItem('jwt', action.payload.user.token)
       agent.setToken(action.payload.user.token)
     }
-  } else if (action.type === AUTH_USER_LOGOUT) {
+  } else if (action.type === LOGIN_USER_LOGOUT) {
     window.localStorage.setItem('jwt', '')
     agent.setToken(null)
   }

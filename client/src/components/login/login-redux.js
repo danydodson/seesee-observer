@@ -6,11 +6,11 @@ import Input from '../shared/input'
 import agent from '../../agent'
 
 import {
+  LOGIN_USER_LOGIN,
   LOGIN_FORM_LOADED,
-  AUTH_USER_LOGIN,
   LOGIN_UPDATE_FIELD,
   LOGIN_FORM_UNLOADED
-} from '../../actions/constants'
+} from './login-types'
 
 const mapStateToProps = state => ({ ...state.login })
 
@@ -22,7 +22,7 @@ const mapDispatchToProps = dispatch => ({
   onChangePassword: value =>
     dispatch({ type: LOGIN_UPDATE_FIELD, key: 'password', value }),
   onSubmit: (email, password) =>
-    dispatch({ type: AUTH_USER_LOGIN, payload: agent.Auth.login(email, password) }),
+    dispatch({ type: LOGIN_USER_LOGIN, payload: agent.Auth.login(email, password) }),
   onUnload: () =>
     dispatch({ type: LOGIN_FORM_UNLOADED }),
 })

@@ -4,21 +4,22 @@ import { connect } from 'react-redux'
 import { store } from '../../store'
 import { push } from 'connected-react-router'
 
+import agent from '../../agent'
+import Header from '../header'
+import Routes from '../routes'
+import Fonts from '../../helpers/load-fonts'
+
 import { CloudinaryContext } from 'cloudinary-react'
 import { CLOUD_NAME, CLOUD_PRESET } from '../../configs'
 
-import Fonts from '../../helpers/load-fonts'
-import Styles from '../../styles'
-
-import Header from '../header'
-import Routes from '../routes'
-import agent from '../../agent'
+import {
+  LOGIN_USER_LOGOUT,
+} from '../login/login-types'
 
 import {
   APP_LOAD,
-  AUTH_USER_LOGOUT,
   APP_REDIRECT_LOCATION
-} from '../../actions/constants'
+} from './app-types'
 
 const mapStateToProps = state => {
   return {
@@ -33,7 +34,7 @@ const mapDispatchToProps = dispatch => ({
   onLoad: (payload, token) =>
     dispatch({ type: APP_LOAD, payload, token, skipTracking: true }),
   onClickLogout: () =>
-    dispatch({ type: AUTH_USER_LOGOUT }),
+    dispatch({ type: LOGIN_USER_LOGOUT }),
   onRedirect: () =>
     dispatch({ type: APP_REDIRECT_LOCATION }),
 })
@@ -59,6 +60,7 @@ class App extends React.Component {
     if (this.props.appLoaded) {
       return (
         <CloudinaryContext
+          className='cloudinary'
           cloudName={CLOUD_NAME}
           uploadPreset={CLOUD_PRESET}>
           <Header
@@ -66,10 +68,10 @@ class App extends React.Component {
             currentUser={this.props.currentUser}
             onClickLogout={this.props.onClickLogout} />
           <Route component={Routes} />
-          <Styles />
         </CloudinaryContext >
       )
     }
+
     return (
       <CloudinaryContext
         cloudName={CLOUD_NAME}
@@ -77,7 +79,6 @@ class App extends React.Component {
         <Header
           appName={this.props.appName}
           currentUser={this.props.currentUser} />
-        <Styles />
       </CloudinaryContext>
     )
   }

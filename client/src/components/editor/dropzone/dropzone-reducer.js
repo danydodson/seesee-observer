@@ -4,7 +4,7 @@ import {
   DROPZONE_MEDIA_UPLOADED,
   DROPZONE_MEDIA_PROGRESS,
   DROPZONE_DELETE_UPLOAD,
-} from '../../../actions/constants'
+} from './dropzone-types'
 
 export default (uploads = [], action) => {
   switch (action.type) {

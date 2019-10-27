@@ -12,11 +12,9 @@ const GlobalStyle = createGlobalStyle`
     text-rendering: optimizeLegibility;
   }
 
-  html,
-  body {
-    /* height: 100%; */
-    /* width: 100%; */
-  }
+  html{}
+  
+  body {}
 
   body {
     font-size: 16;
@@ -219,6 +217,14 @@ const GlobalStyle = createGlobalStyle`
 
   /** Post Previews ------------------------------------------------*/
 
+  /* article.preview {
+    &:hover>.cart {}
+    &:hover>.heart {}
+    &:hover>.auth-name {}
+    &:hover>a.preview>img.auth-image {}
+    &:hover>a.preview>figure.post-preview {}
+  }
+
   figure.post-preview {
     margin: .8rem 0 .8rem 0;
 
@@ -246,11 +252,32 @@ const GlobalStyle = createGlobalStyle`
     }
   }
 
+  img.img-preview {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-height: 100%;
+  }
+
+  img.auth-image {
+    bottom: 32px;
+    left: 32px;
+    height: 32px;
+    opacity: 0;
+    position: absolute;
+    border-radius: 100px;
+    transition: .1s;
+  }
+
+  a.preview {
+    transition: .1s;
+  } */
+
   /** Posts ------------------------------------------------*/
   
-  ul.posts-feed {}
+  /* ul.posts-feed {} */
   
-  li.post-preview {
+  /* li.post-preview {
     width: 30%;
     margin: 1rem;
 
@@ -270,29 +297,28 @@ const GlobalStyle = createGlobalStyle`
     :hover>a.post-author-username {  opacity: 1; }
     
     :hover>button.post-btn-faved { opacity: 1; }
-  }
+  } */
   
-  a.post-preview-link {
+  /* a.post-preview-link {
     transition: .1s 
-  }
+  } */
 
-  figure.post-preview-tint {
+  /* figure.post-preview-tint {
     opacity: 1;
     position: relative;
     background: rgba(0,0,0,0);
     transition: .3s;
-    /* z-index: 1; */
-  }
+  } */
 
 
-  img.post-preview-img {
+  /* img.post-preview-img {
     width: 100%;
     height: auto;
     display: block;
     max-height: 100%;
-  }
+  } */
   
-  img.post-author-img {
+  /* img.post-author-img {
     opacity: 0;
     left: 20px;
     bottom: 25px;
@@ -300,20 +326,18 @@ const GlobalStyle = createGlobalStyle`
     position: absolute;
     border-radius: 100px;
     transition: .1s;
-    /* z-index: 10; */
-  }
+  } */
   
-  a.post-author-username {
+  /* a.post-author-username {
     opacity: 0;
     left: 60%;
     bottom: 10%;
     color: #ffffff;
     position: absolute;
     transition: .1s;
-    /* z-index: 10; */
-  }
+  } */
   
-  button.post-btn-faved {
+  /* button.post-btn-faved {
     opacity: 0;
     left: 70%;
     bottom: 30px;
@@ -321,13 +345,11 @@ const GlobalStyle = createGlobalStyle`
     position: absolute;
     transition: .1s;
     cursor: pointer;
-    /* z-index: 20; */
-  }
+  } */
   
-  button.is-faved { 
+  /* button.is-faved { 
     color: red; 
-    /* z-index: 20; */
-  }
+  } */
   
   /* ul.post-tag-list {
     position: absolute;

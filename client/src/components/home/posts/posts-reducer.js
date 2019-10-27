@@ -1,17 +1,25 @@
 import {
+  APP_VIEW_TAB,
+  APP_VIEW_PAGE_,
+  APP_MEDIUM_FILTER,
+} from '../../app/app-types'
+
+import {
   HOME_PAGE_LOADED,
   HOME_PAGE_UNLOADED,
-  SET_VIEW_TAB,
-  SET_VIEW_PAGE_,
-  // SET_TAG_FILTER,
-  SET_MEDIUM_FILTER,
+} from '../home-types'
+
+import {
   POST_ITEM_FAVORITED,
   POST_ITEM_UNFAVORITED,
+} from '../../post/post-types'
+
+import {
   PROFILE_PAGE_LOADED,
   PROFILE_PAGE_UNLOADED,
   PROFILE_FAVORITES_LOADED,
   PROFILE_FAVORITES_UNLOADED
-} from '../../../actions/constants'
+} from '../../profile/profile-types'
 
 export default (state = {}, action) => {
   switch (action.type) {
@@ -32,7 +40,7 @@ export default (state = {}, action) => {
         })
       }
 
-    case SET_VIEW_PAGE_:
+    case APP_VIEW_PAGE_:
       return {
         ...state,
         posts: action.payload.posts,
@@ -40,7 +48,7 @@ export default (state = {}, action) => {
         currentPage: action.page
       }
 
-    case SET_MEDIUM_FILTER:
+    case APP_MEDIUM_FILTER:
       return {
         ...state,
         pager: action.pager,
@@ -77,7 +85,7 @@ export default (state = {}, action) => {
     case HOME_PAGE_UNLOADED:
       return {}
 
-    case SET_VIEW_TAB:
+    case APP_VIEW_TAB:
       return {
         ...state,
         pager: action.pager,

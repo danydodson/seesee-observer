@@ -1,6 +1,6 @@
 import {
   SEARCH_FIELD_UPDATE,
-} from '../../actions/constants'
+} from './search-types'
 
 export default (state = {}, action) => {
   switch (action.type) {

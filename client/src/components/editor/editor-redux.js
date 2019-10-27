@@ -24,7 +24,7 @@ import {
   EDITOR_TEXT_FIELD_UPDATE,
   EDITOR_CHECKBOX_SWITCHED,
   EDITOR_POST_SUBMITTED,
-} from '../../actions/constants'
+} from './editor-types'
 
 const mapStateToProps = state => ({ ...state, ...state.editor })
 

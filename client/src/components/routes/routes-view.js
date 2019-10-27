@@ -1,5 +1,10 @@
 import React from 'react'
 import { Route, Switch } from 'react-router-dom'
+import Private from './routes-private'
+
+import styled from 'styled-components'
+import { maxWidthContent } from '../../styles/utils'
+
 import Home from '../home'
 import Post from '../post'
 import Editor from '../editor'
@@ -9,11 +14,17 @@ import Settings from '../settings'
 import Login from '../login'
 import Register from '../register'
 
-import Private from './routes-private'
+const Main = styled.div`
+  max-width: ${`${maxWidthContent}px`};
+  margin: 0 auto;
+  width: 100%;
+  height: 100%;
+  top: 0;
+`;
 
 const Routes = () => {
   return (
-    <main className='main-routes'>
+    <Main>
       <Switch>
         <Route exact path="/" component={Home} />
         <Route path="/login" component={Login} />
@@ -25,7 +36,7 @@ const Routes = () => {
         <Private path="/settings" component={Settings} />
         <Private path="/editor/:slug" component={Editor} />
       </Switch>
-    </main>
+    </Main>
   )
 }
 

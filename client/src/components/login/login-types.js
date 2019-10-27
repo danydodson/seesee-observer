@@ -1,0 +1,5 @@
+export const LOGIN_FORM_LOADED = '@@login/FORM_LOADED'
+export const LOGIN_FORM_UNLOADED = '@@login/FORM_UNLOADED'
+export const LOGIN_UPDATE_FIELD = '@@login/UPDATE_FIELD'
+export const LOGIN_USER_LOGIN = '@@login/USER_LOGIN'
+export const LOGIN_USER_LOGOUT = '@@login/USER_LOGOUT'

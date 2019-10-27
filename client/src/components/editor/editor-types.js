@@ -1,0 +1,8 @@
+export const EDITOR_FORM_LOADED = '@@editor/FORM_LOADED'
+export const EDITOR_FORM_UNLOADED = '@@editor/FORM_UNLOADED'
+export const EDITOR_TAG_ADDED = '@@editor/TAG_ADDED_TO_POST'
+export const EDITOR_TAG_REMOVED = '@@editor/TAG_REMOVED_FROM POST'
+export const EDITOR_TEXT_FIELD_UPDATE = '@@editor/TEXT_FIELD_UPDATE'
+export const EDITOR_CHECKBOX_SWITCHED = '@@editor/CHECKBOX_SWITCHED'
+export const EDITOR_POST_SUBMITTED = '@@editor/POST_SUBMITTED'
+export const EDITOR_TITILE_UPDATE = '@@editor/EDITOR_TITILE_UPDATE'

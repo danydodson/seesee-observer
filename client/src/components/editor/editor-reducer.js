@@ -1,13 +1,16 @@
 import {
+  APP_ASYNC_START,
+} from '../app/app-types'
+
+import {
   EDITOR_FORM_UNLOADED,
   EDITOR_POST_SUBMITTED,
-  APP_ASYNC_START,
   EDITOR_FORM_LOADED,
   EDITOR_TEXT_FIELD_UPDATE,
   EDITOR_CHECKBOX_SWITCHED,
   EDITOR_TAG_ADDED,
   EDITOR_TAG_REMOVED,
-} from '../../actions/constants'
+} from './editor-types'
 
 export default (state = {}, action) => {
   switch (action.type) {

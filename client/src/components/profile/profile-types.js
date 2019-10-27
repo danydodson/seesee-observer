@@ -1,0 +1,6 @@
+export const PROFILE_PAGE_LOADED = '@@profile/PAGE_LOADED'
+export const PROFILE_PAGE_UNLOADED = '@@profile/PAGE_UNLOADED'
+export const PROFILE_FAVORITES_LOADED = '@@profile/FAVORITES_LOADED'
+export const PROFILE_FAVORITES_UNLOADED = '@@profile/FAVORITES_UNLOADED'
+export const PROFILE_FOLLOW_USER = '@@profile/FOLLOW_USER'
+export const PROFILE_UNFOLLOW_USER = '@@profile/UNFOLLOW_USER'

@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import agent from '../../../agent'
 
@@ -6,20 +7,13 @@ import imgSizes from './images/get-sizes'
 import srcUrl from './images/get-srcurl'
 import srcSet from './images/get-srcset'
 
-// import { Figure } from './styles/figure-tint'
-import { Preview } from './styles/article-preview'
-import { PreviewImage } from './styles/img-preview'
-import { PreviewLink } from './styles/link-preview'
-import { AuthorLink } from './styles/link-authimg'
-import { AuthorName } from './styles/link-authname'
-import { AuthorImage } from './styles/img-author'
-import { Heart } from './styles/svg-heart'
-import { Cash } from './styles/svg-cash'
+// import { GoHeart } from "react-icons/go"
+// import { FaDollarSign } from "react-icons/fa"
 
 import {
   POST_ITEM_FAVORITED,
   POST_ITEM_UNFAVORITED
-} from '../../../actions/constants'
+} from '../../post/post-types'
 
 const mapStateToProps = state => {
   return {
@@ -38,70 +32,69 @@ const PostPreview = props => {
 
   const post = props.post
 
-  const handleClick = ev => {
-    ev.preventDefault()
-    if (post.favorited) props.unfavorite(post.slug)
-    else props.favorite(post.slug)
-  }
+  // const handleClick = ev => {
+  //   ev.preventDefault()
+  //   if (post.favorited) props.unfavorite(post.slug)
+  //   else props.favorite(post.slug)
+  // }
 
   return (
-    <Preview
-      itemScope
-      itemProp='image'
-      itemType='http://schema.org/ImageObject'>
+    <article className='dib hide-child'>
 
-      <PreviewLink
+      <Link
+        className=''
         to={`/post/${post.slug}`}
-        itemProp="contentUrl"
         title={`view the post by ${post.author.username}`}>
 
-        <figure className='post-preview'>
+        <figure className=''>
           {
-            post.uploads.map((upload, fileName) => {
+            post.uploads.map((upload, public_id) => {
               return (
-                <PreviewImage
-                  key={fileName}
+                <img
+                  className=''
+                  key={public_id}
                   sizes={imgSizes}
                   srcSet={srcSet(upload)}
                   src={srcUrl(upload)}
-                  alt={upload.fileName}
-                  itemProp='previewImage' />
+                  alt={upload.public_id} />
               )
             })
           }
         </figure>
 
-      </PreviewLink>
+      </Link>
 
-      <AuthorLink
+      {/* <Link
+        className='child'
         to={`/@${post.author.username}`}>
-
-        <AuthorImage
+        <img
           src={post.author.image}
-          className='pp-author-img'
+          className='auth-image'
           alt={`go to ${post.author.username}'s profile`} />
-      </AuthorLink>
+      </Link> */}
 
-      <AuthorName
+      {/* <Link
+        className=''
         to={`/@${post.author.username}`}
         title={`go to ${post.author.username}'s profile`}>
         {post.author.username}
-      </AuthorName>
+      </Link>
 
       {post.purchasable ?
-        <Cash
-          onClick={handleClick}
-          title='This item is purchasable' />
+        <FaDollarSign
+          className=''
+          title='This item is purchasable'
+          onClick={handleClick} />
         : null
       }
 
-      <Heart
+      <GoHeart
+        className=''
         title='isfaved'
         onClick={handleClick}
-        favorited={post.favorited ? 1 : 0}
-      />
+        favorited={post.favorited ? 1 : 0} /> */}
 
-    </Preview>
+    </article>
   )
 }
 

@@ -1,26 +1,46 @@
 import {
   APP_LOAD,
   APP_REDIRECT_LOCATION,
-  EDITOR_POST_SUBMITTED,
-  SETTINGS_FORM_SAVED,
-  POST_ITEM_DELETE_POST,
-  AUTH_USER_LOGIN,
-  AUTH_USER_LOGOUT,
-  AUTH_USER_REGISTER,
-  AUTH_USER_DELETE,
-  HOME_PAGE_UNLOADED,
-  LOGIN_FORM_UNLOADED,
-  REGISTER_FORM_UNLOADED,
-  SETTINGS_FORM_UNLOADED,
-  PROFILE_PAGE_UNLOADED,
-  POST_ITEM_UNLOADED,
-  EDITOR_FORM_UNLOADED,
-  PROFILE_FAVORITES_UNLOADED,
+} from './app-types'
 
-} from '../../actions/constants'
+import {
+  POST_ITEM_DELETE_POST,
+  POST_ITEM_UNLOADED,
+} from '../post/post-types'
+
+import {
+  HOME_PAGE_UNLOADED,
+} from '../home/home-types'
+
+import {
+  REGISTER_USER_REGISTER,
+  REGISTER_USER_DELETE,
+  REGISTER_FORM_UNLOADED,
+} from '../register/register-types'
+
+import {
+  LOGIN_USER_LOGIN,
+  LOGIN_USER_LOGOUT,
+  LOGIN_FORM_UNLOADED,
+} from '../login/login-types'
+
+import {
+  PROFILE_PAGE_UNLOADED,
+  PROFILE_FAVORITES_UNLOADED,
+} from '../profile/profile-types'
+
+import {
+  SETTINGS_FORM_SAVED,
+  SETTINGS_FORM_UNLOADED,
+} from '../settings/settings-types'
+
+import {
+  EDITOR_POST_SUBMITTED,
+  EDITOR_FORM_UNLOADED,
+} from '../editor/editor-types'
 
 const defaultState = {
-  appName: 'SeeSee',
+  appName: 'seesee',
   token: null,
   viewChangeCounter: 0,
 }
@@ -42,8 +62,8 @@ export default (state = defaultState, action) => {
         redirectTo: null,
       }
 
-    case AUTH_USER_DELETE:
-    case AUTH_USER_LOGOUT:
+    case REGISTER_USER_DELETE:
+    case LOGIN_USER_LOGOUT:
       return { ...state, redirectTo: '/', token: null, currentUser: null }
 
     case EDITOR_POST_SUBMITTED:
@@ -60,8 +80,8 @@ export default (state = defaultState, action) => {
         currentUser: action.error ? null : action.payload.user,
       }
 
-    case AUTH_USER_LOGIN:
-    case AUTH_USER_REGISTER:
+    case LOGIN_USER_LOGIN:
+    case REGISTER_USER_REGISTER:
       return {
         ...state,
         redirectTo: action.error ? null : '/',

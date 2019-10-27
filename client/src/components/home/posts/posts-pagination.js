@@ -1,11 +1,14 @@
 import React from 'react'
 import agent from '../../../agent'
 import { connect } from 'react-redux'
-import { SET_VIEW_PAGE_ } from '../../../actions/constants'
+
+import {
+  APP_VIEW_PAGE_
+} from '../../app/app-types'
 
 const mapDispatchToProps = dispatch => ({
   onSetPage: (page, payload) =>
-    dispatch({ type: SET_VIEW_PAGE_, page, payload })
+    dispatch({ type: APP_VIEW_PAGE_, page, payload })
 })
 
 const ListPagination = props => {

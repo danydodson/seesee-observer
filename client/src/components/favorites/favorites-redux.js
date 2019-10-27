@@ -7,7 +7,7 @@ import agent from '../../agent'
 import {
   PROFILE_PAGE_LOADED,
   PROFILE_PAGE_UNLOADED
-} from '../../actions/constants'
+} from '../profile/profile-types'
 
 const mapDispatchToProps = dispatch => ({
   onLoad: (pager, payload) =>

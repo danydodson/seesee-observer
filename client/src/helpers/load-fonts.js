@@ -1,6 +1,9 @@
 import FontFaceObserver from 'fontfaceobserver'
 
 /**
+ * Loads specified fonts using FontFaceObserver
+ * 
+ * Example usage...
  * 
  * font.load().then(function () {
  * 

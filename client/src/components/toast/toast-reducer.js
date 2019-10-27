@@ -1,9 +1,7 @@
 import {
-  // TOAST_INFO, 
-  // TOAST_SUCCESS, 
   TOAST_ADD,
   TOAST_REMOVE,
-} from '../../actions/constants'
+} from './toast-types'
 
 export default (state = {}, action) => {
 

@@ -1,0 +1,6 @@
+export const TOASTIFY = '@@TOASTIFY'
+export const TOAST_ADD = '@@toast/SHOW_NOTIFY'
+export const TOAST_REMOVE = '@@toast/REMOVE_NOTIFY'
+export const TOAST_SUCCESS = '@@toast/NOTIFY_SUCCESS'
+export const TOAST_INFO = '@@toast/NOTIFY_INFO'
+export const TOAST_ERROR = '@@toast/NOTIFY_ERROR'

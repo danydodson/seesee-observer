@@ -4,10 +4,10 @@ import { Link } from 'react-router-dom'
 const AppName = ({ appName }) => {
   return (
     <Link
-      className='title-link'
-      to="/" >
-      {appName.toLowerCase()}
-    </Link >
+      to="/"
+      className='avenir f3 fw6 tracked-tight link mid-gray hover-near-black'>
+      {appName}
+    </Link>
   )
 }
 

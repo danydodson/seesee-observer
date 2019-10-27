@@ -1,21 +1,15 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
-
-// import { ToastContainer } from 'react-toastify'
-// import { toast } from 'react-toastify'
-// import 'react-toastify/dist/ReactToastify.css'
-
 import Errors from '../toast'
-
-import agent from '../../agent'
+import Agent from '../../agent'
 
 import {
   REGISTER_FORM_LOADED,
   REGISTER_UPDATE_FIELD,
-  AUTH_USER_REGISTER,
+  REGISTER_USER_REGISTER,
   REGISTER_FORM_UNLOADED
-} from '../../actions/constants'
+} from './register-types'
 
 const mapStateToProps = state => ({ ...state.register })
 
@@ -33,8 +27,8 @@ const mapDispatchToProps = dispatch => ({
   onUnload: () =>
     dispatch({ type: REGISTER_FORM_UNLOADED }),
   onSubmit: (username, email, password, confirm) => {
-    const payload = agent.Auth.register(username, email, password, confirm)
-    dispatch({ type: AUTH_USER_REGISTER, payload })
+    const payload = Agent.Auth.register(username, email, password, confirm)
+    dispatch({ type: REGISTER_USER_REGISTER, payload })
   },
 })
 
@@ -69,11 +63,6 @@ class Register extends React.Component {
     return (
       <div className='register-page'>
 
-        {/* {this.checkErrors
-          ? <ToastContainer />
-          : null
-        } */}
-        {/* <ToastContainer /> */}
         <Errors errors={this.props.errors} />
 
         <h1>{'Sign Up'}</h1>
@@ -120,7 +109,6 @@ class Register extends React.Component {
             </fieldset>
 
             <button
-              // onClick={this.notifyError}
               className=''
               type='submit'
               disabled={this.props.inProgress}>
