@@ -7,6 +7,8 @@ var DEFAULT_IMAGE = require('../config').DEFAULT_IMAGE
 
 var UserSchema = new mongoose.Schema({
   bio: String,
+  age: Number,
+  birth_date: Date,
   hash: String,
   salt: String,
   image: {
