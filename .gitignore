@@ -1,11 +1,17 @@
-/assets
-/server/.env
-/server/config/env-dev.js
-/server/logs/*.log
-/server/node_modules
-/server/public/samples
-/.vscode
+# root
+/node_modules
+/package-lock.json
+/.vscode/settings.json
 
+# frontend
 /client/.env
-/client/node_modules
+/api/logs/*.log
 /client/build
+/client/node_modules
+/client/package-lock.json
+
+# backend
+/api/.env
+/api/*.log
+/api/node_modules
+/api/package-lock.json

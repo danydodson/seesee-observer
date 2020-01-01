@@ -1,21 +1,52 @@
 {
-  "name": "seesee",
-  "version": "1.0.0",
-  "private": true,
-  "description": "Social network for local artists",
+  "name": "connected",
+  "version": "0.1.0",
+  "homepage": "https://github.com/DanyDodson/connected#readme",
+  "description": "Social network for artists",
   "author": "Dany Dodson",
-  "license": "ISC",
+  "keywords": [
+    "cron",
+    "jobs",
+    "js",
+    "javascript",
+    "node",
+    "express"
+  ],
+  "private": true,
   "scripts": {
-    "start": "cd ./server && node ./server/server.js",
-    "build": "cd ./client && npm run build",
-    "server": "cd ./server && nodemon ./server.js",
-    "client": "cd ./client && npm run start",
-    "test": "cd ./server && newman run ./tests/api-tests.postman.json -e ./tests/env-api-tests.postman.json",
-    "lint": "eslint client/src/**/*.js src/**/*.jsx",
-    "prod": "NODE_ENV=production node ./server/server.js"
+    "start:api": "npm start --prefix api",
+    "start:client": "npm start --prefix client",
+    "start": "concurrently \"npm run start:api\" \"npm run start:frontend\"",
+    "deploy:api": "git subtree push --prefix api heroku master",
+    "format": "prettier --trailing-comma es5 --single-quote --write '**/*.{js,md,json}'"
   },
+  "workspaces": [
+    "api",
+    "client"
+  ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/DanyDodson/seesee.git"
+    "url": "git+https://github.com/DanyDodson/connected.git"
+  },
+  "engines": {
+    "node": ">=12.14.0",
+    "npm": ">=6.13.4"
+  },
+  "devDependencies": {
+    "concurrently": "^5.0.2",
+    "husky": "^3.1.0",
+    "lint-staged": "^9.5.0",
+    "prettier": "^1.19.1"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,md,css,html}": [
+      "prettier --trailing-comma es5 --single-quote --write",
+      "git add"
+    ]
   }
 }

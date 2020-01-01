@@ -1,86 +1,68 @@
-import React from 'react'
-import { Route } from 'react-router-dom'
-import { connect } from 'react-redux'
-import { store } from '../../store'
-import { push } from 'connected-react-router'
+import React, { Fragment, useEffect } from 'react'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 
-import { CloudinaryContext } from 'cloudinary-react'
-import { CLOUD_NAME, CLOUD_PRESET } from '../../configs'
+import { Provider } from 'react-redux'
+import store from '../../store'
 
-import Fonts from '../../helpers/load-fonts'
-import Styles from '../../styles'
-
-import Header from '../header'
-import Routes from '../routes'
-import agent from '../../agent'
+import setAuthToken from '../../utils/set-token'
+import jwt_decode from 'jwt-decode'
 
 import {
-  APP_LOAD,
-  AUTH_USER_LOGOUT,
-  APP_REDIRECT_LOCATION
-} from '../../actions/constants'
+  setCurrentUser,
+  logoutUser,
+  // clearCurrentProfile,
+} from '../../actions/auth'
 
-const mapStateToProps = state => {
-  return {
-    appLoaded: state.app.appLoaded,
-    appName: state.app.appName,
-    currentUser: state.app.currentUser,
-    redirectTo: state.app.redirectTo
+import Navbar from '../navbar'
+import Landing from '../landing'
+import Routes from '../routes/routes-view'
+// import LogRocket from 'logrocket'
+// import setupLogRocketReact from 'logrocket-react'
+
+import './App.css'
+
+// LogRocket.init('r5uhu6/seesee')
+// setupLogRocketReact(LogRocket)
+
+// LogRocket.identify('r5uhu6', {
+//   name: 'Dany Dodson',
+//   email: 'danydodson@gmail.com',
+//   subscriptionType: 'pro'
+// })
+
+// Check for token
+if (localStorage.jwtToken) {
+  setAuthToken(localStorage.jwtToken)
+  const decoded = jwt_decode(localStorage.jwtToken, { session: false })
+  store.dispatch(setCurrentUser(decoded))
+
+  const currentTime = Date.now() / 1000
+  if (decoded.exp < currentTime) {
+    store.dispatch(logoutUser())
+    // store.dispatch(clearCurrentProfile())
+    window.location.href = '/signin'
   }
 }
 
-const mapDispatchToProps = dispatch => ({
-  onLoad: (payload, token) =>
-    dispatch({ type: APP_LOAD, payload, token, skipTracking: true }),
-  onClickLogout: () =>
-    dispatch({ type: AUTH_USER_LOGOUT }),
-  onRedirect: () =>
-    dispatch({ type: APP_REDIRECT_LOCATION }),
-})
+const App = () => {
 
-class App extends React.Component {
+  useEffect(() => {
+    // store.dispatch(loadUser())
+  }, [])
 
-  UNSAFE_componentWillReceiveProps(nextProps) {
-    if (nextProps.redirectTo) {
-      store.dispatch(push(nextProps.redirectTo))
-      this.props.onRedirect()
-    }
-  }
-
-  UNSAFE_componentWillMount() {
-    Fonts()
-    const token = window.localStorage.getItem('jwt')
-    if (token) agent.setToken(token)
-    this.props.onLoad(token ? agent.Auth.current() : null, token)
-  }
-
-  render() {
-
-    if (this.props.appLoaded) {
-      return (
-        <CloudinaryContext
-          cloudName={CLOUD_NAME}
-          uploadPreset={CLOUD_PRESET}>
-          <Header
-            appName={this.props.appName}
-            currentUser={this.props.currentUser}
-            onClickLogout={this.props.onClickLogout} />
-          <Route component={Routes} />
-          <Styles />
-        </CloudinaryContext >
-      )
-    }
-    return (
-      <CloudinaryContext
-        cloudName={CLOUD_NAME}
-        uploadPreset={CLOUD_PRESET}>
-        <Header
-          appName={this.props.appName}
-          currentUser={this.props.currentUser} />
-        <Styles />
-      </CloudinaryContext>
-    )
-  }
+  return (
+    <Provider store={store}>
+      <Router>
+        <Fragment>
+          <Navbar />
+          <Switch>
+            <Route exact path='/' component={Landing} />
+            <Route component={Routes} />
+          </Switch>
+        </Fragment>
+      </Router>
+    </Provider>
+  )
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(App)
+export default App

@@ -1,94 +1,43 @@
-import React from 'react'
+import React, { Fragment, useEffect } from 'react'
+import PropTypes from 'prop-types'
+import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
-import PostMeta from './post-meta'
-import Comments from './comment'
-import agent from '../../agent'
-import marked from 'marked'
+import Spinner from '../shared/Spinner'
+import PostItem from '../posts/post-preview'
+import CommentForm from './comment/comment-form'
+import CommentItem from './comment/comment-item'
+import { getPost } from '../../actions/post'
 
-import { CLOUD_DELIVERY } from '../../configs'
+const Post = ({ getPost, post: { post, loading }, match }) => {
+  useEffect(() => {
+    getPost(match.params.id)
+  }, [getPost, match.params.id])
 
-import {
-  POST_ITEM_LOADED,
-  POST_ITEM_UNLOADED
-} from '../../actions/constants'
-
-const mapStateToProps = state => ({
-  ...state.post,
-  currentUser: state.app.currentUser
-})
-
-const mapDispatchToProps = dispatch => ({
-  onLoad: payload =>
-    dispatch({ type: POST_ITEM_LOADED, payload }),
-  onUnload: () =>
-    dispatch({ type: POST_ITEM_UNLOADED })
-})
-
-class Post extends React.Component {
-
-  UNSAFE_componentWillMount() {
-    this.props.onLoad(Promise.all([
-      agent.Posts.get(this.props.match.params.id),
-      agent.Comments.forPost(this.props.match.params.id)
-    ]))
-  }
-
-  componentWillUnmount() {
-    this.props.onUnload()
-  }
-
-  render() {
-
-    if (!this.props.post) return null
-
-    const markup = { __html: marked(this.props.post.body, {}) }
-
-    const canModify = this.props.currentUser &&
-      this.props.currentUser.username === this.props.post.author.username
-
-    const vr = this.props.post.uploads[0].version
-    const id = this.props.post.uploads[0].public_id
-    const fm = this.props.post.uploads[0].format
-
-    return (
-      <div className='post-page'>
-
-        <h1>{this.props.post.title}</h1>
-
-        <PostMeta
-          post={this.props.post}
-          canModify={canModify} />
-
-        <div dangerouslySetInnerHTML={markup}></div>
-
-        {this.props.post.uploads.map((upload, public_id) => {
-          return (
-            <img
-              key={public_id}
-              alt={upload.fileName}
-              src={`${CLOUD_DELIVERY}/w_333,c_scale/v${vr}/${id}.${fm}`} />
-          )
-        })}
-
-        <ul>
-          {this.props.post.tagList.map(tag => {
-            return <li key={tag}>{tag}</li>
-          })}
-        </ul>
-
-        <hr />
-
-        <div className="article-actions"></div>
-
-        <Comments
-          comments={this.props.comments || []}
-          errors={this.props.commentErrors}
-          slug={this.props.match.params.id}
-          currentUser={this.props.currentUser} />
-
-      </div>
+  return loading || post === null
+    ? (<Spinner />)
+    : (
+      <Fragment>
+        <Link to='/posts' className='btn'>
+          Back To Posts
+      </Link>
+        <PostItem post={post} showActions={false} />
+        <CommentForm postId={post._id} />
+        <div className='comments'>
+          {post.comments.map(comment => (
+            <CommentItem key={comment._id} comment={comment} postId={post._id} />
+          ))}
+        </div>
+      </Fragment>
     )
-  }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Post)
+Post.propTypes = {
+  getPost: PropTypes.func.isRequired,
+  post: PropTypes.object.isRequired
+}
+
+const mapStateToProps = state => ({
+  post: state.post
+})
+
+export default connect(mapStateToProps, { getPost })(Post)
