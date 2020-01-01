@@ -15,15 +15,12 @@
   "scripts": {
     "start:api": "npm start --prefix api",
     "start:client": "npm start --prefix client",
+    "start:build": "npm run build --prefix client",
     "start:update": "npm-check --update",
     "start": "concurrently \"npm run start:api\" \"npm run start:client\"",
     "deploy:api": "git subtree push --prefix api heroku master",
     "format": "prettier --trailing-comma es5 --single-quote --write '**/*.{js,md,json}'"
   },
-  "workspaces": [
-    "api",
-    "client"
-  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/DanyDodson/seesee.git"

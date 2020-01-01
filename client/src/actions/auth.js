@@ -16,14 +16,16 @@ import { setAlert } from './alert'
 
 // register user
 export const registerUser = (userData, history) => async dispatch => {
-  await axios.post('/api/auth/signup', userData)
+  await axios
+    .post(`${process.env.REACT_APP_BASE_URL_API}/api/auth/signup`, userData)
     .then(res => history.push('/signin'))
     .catch(err => dispatch({ type: REGISTER_FAIL, payload: err }))
 }
 
 // login - get user token
 export const loginUser = userData => async dispatch => {
-  await axios.post('/api/auth/signin', userData)
+  await axios
+    .post(`${process.env.REACT_APP_BASE_URL_API}/api/auth/signin`, userData)
     .then(res => {
       const { authToken } = res.data
       localStorage.setItem('jwtToken', authToken)
@@ -34,7 +36,8 @@ export const loginUser = userData => async dispatch => {
     })
     .catch(err => {
       const errors = err.response.data.errors
-      if (errors) errors.forEach(error => dispatch(setAlert(error.msg, 'error')))
+      if (errors)
+        errors.forEach(error => dispatch(setAlert(error.msg, 'error')))
       dispatch({ type: LOGIN_FAIL })
     })
 }
@@ -43,7 +46,7 @@ export const loginUser = userData => async dispatch => {
 export const setCurrentUser = decoded => {
   return {
     type: SET_CURRENT_USER,
-    payload: decoded
+    payload: decoded,
   }
 }
 
