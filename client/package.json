@@ -2,7 +2,6 @@
   "name": "seesee-client",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://localhost:5025",
   "scripts": {
     "start": "cross-env PORT=5026 react-scripts start",
     "build": "react-scripts build",
