@@ -29,7 +29,8 @@
     "url": "git+https://github.com/DanyDodson/seesee.git"
   },
   "engines": {
-    "node": ">=12.x.x"
+    "node": ">=12.x.x",
+    "npm": ">=6.x.x"
   },
   "devDependencies": {
     "concurrently": "^5.0.2",
