@@ -4,9 +4,8 @@
   "private": true,
   "main": "src/app.js",
   "scripts": {
-    "start": "nodemon --exec babel-node src/app.js",
-    "heroku-postbuild": "npm install --only=dev && npm install",
-    "heroku-postinstall": "npm install --only=dev && npm install",
+    "start": "node --exec babel-node src/app.js",
+    "watch": "nodemon --exec babel-node src/app.js",
     "pm2": "pm2 start src/app.js --name seesee --watch",
     "inspect": "nodemon --inspect --exec babel-node src/app.js",
     "test": "cross-env NODE_ENV=test jest --testTimeout=10000",
