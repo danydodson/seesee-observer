@@ -15,6 +15,7 @@
   "scripts": {
     "start:api": "npm start --prefix api",
     "start:client": "npm start --prefix client",
+    "start:update": "npm-check --update",
     "start": "concurrently \"npm run start:api\" \"npm run start:client\"",
     "deploy:api": "git subtree push --prefix api heroku master",
     "format": "prettier --trailing-comma es5 --single-quote --write '**/*.{js,md,json}'"
@@ -23,11 +24,11 @@
     "api",
     "client"
   ],
-  "homepage": "https://github.com/DanyDodson/seesee#readme",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/DanyDodson/seesee.git"
   },
+  "homepage": "https://github.com/DanyDodson/seesee#readme",
   "engines": {
     "node": ">=12.x.x",
     "npm": ">=6.x.x"
