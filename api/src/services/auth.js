@@ -5,26 +5,25 @@ import login from '../auth'
 import getUserByEmail from '../database/user'
 
 export default class AuthService {
-
-  constructor (container) {
+  constructor(container) {
     this.logger = container.get('logger')
     this.userModel = container.get('userModel')
     this.agendaJob = container.get('agendaInstance')
   }
 
-  /** 
+  /**
    * @desc testingService
-  */
-  async testingService () {
-    this.logger.debug('0️⃣  calling auth test endpoint')
+   */
+  async testingService() {
+    this.logger.debug('👉  calling auth test endpoint')
     return { msg: 'auth test route working' }
   }
 
   /**
    * @desc signUpService
-  */
-  async signUpService (body) {
-    this.logger.debug('0️⃣  calling sign up endpoint')
+   */
+  async signUpService(body) {
+    this.logger.debug('👉  calling sign up endpoint')
 
     const newUser = await new this.userModel(body)
     await newUser.setPassword(body.password)
@@ -44,7 +43,11 @@ export default class AuthService {
     user.verifyToken = token
     await user.save()
 
-    const mailData = { email: user.email, client: config.url.client, token: token }
+    const mailData = {
+      email: user.email,
+      client: config.url.client,
+      token: token,
+    }
     await this.agendaJob.now('send-verify-account-email', mailData)
 
     const userData = await user.authUserToJSON()
@@ -53,9 +56,9 @@ export default class AuthService {
 
   /**
    * @desc signInService
-  */
-  async signInService (body) {
-    this.logger.debug('0️⃣  calling sign in endpoint')
+   */
+  async signInService(body) {
+    this.logger.debug('👉  calling sign in endpoint')
 
     const user = await getUserByEmail({ email: body.email })
     this.logger.debug(user)
@@ -83,9 +86,9 @@ export default class AuthService {
 
   /**
    * @desc getUserService
-  */
-  async getUserService (id) {
-    this.logger.debug('0️⃣  calling get user endpoint')
+   */
+  async getUserService(id) {
+    this.logger.debug('👉  calling get user endpoint')
 
     const user = await this.UserModel.findOne({ _id: id })
 
@@ -95,9 +98,8 @@ export default class AuthService {
     const options = {
       issuer: 'seesee.com',
       // subject: 'verify_email',
-      expiresIn: Math.floor(Date.now() / 1000) + (60 * 60),
+      expiresIn: Math.floor(Date.now() / 1000) + 60 * 60,
     }
-
 
     // userData = jwt.verify(token, config.app.jwtSecret, options)
     // await passport.authenticate('jwt', { session: false })
@@ -111,9 +113,9 @@ export default class AuthService {
 
   /**
    * @desc setVerifiedService
-  */
-  async setVerifiedService (token) {
-    this.logger.debug('0️⃣  calling verified email endpoint')
+   */
+  async setVerifiedService(token) {
+    this.logger.debug('👉  calling verified email endpoint')
 
     const user = await this.UserModel.findOne({ verifyToken: token })
 
@@ -135,16 +137,18 @@ export default class AuthService {
 
     // TODO validation isnt called if this func is called again
 
-    await this.agendaJob.now('send-verified-account-email', { email: user.email })
+    await this.agendaJob.now('send-verified-account-email', {
+      email: user.email,
+    })
 
     return { user }
   }
 
   /**
    * @desc forgotPassService
-  */
-  async forgotPassService (id) {
-    this.logger.debug('0️⃣  calling forgot password endpoint')
+   */
+  async forgotPassService(id) {
+    this.logger.debug('👉  calling forgot password endpoint')
 
     const user = await this.UserModel.findOne({ _id: id })
 
@@ -161,23 +165,28 @@ export default class AuthService {
 
     this.logger.debug(user)
 
-    const mailData = { email: user.email, client: config.url.client, token: token }
+    const mailData = {
+      email: user.email,
+      client: config.url.client,
+      token: token,
+    }
     await this.agendaJob.now('send-forgot-password-email', mailData)
 
     const userData = await user.forgotPasswordToken(user)
-
 
     return { userData }
   }
 
   /**
    * @desc resetPassService
-  */
-  async resetPassService (id, userInput) {
-    this.logger.debug('0️⃣  calling reset password endpoint')
+   */
+  async resetPassService(id, userInput) {
+    this.logger.debug('👉  calling reset password endpoint')
 
     const foundUser = await this.UserModel.findOne({ _id: id })
-    const user = await this.UserModel.findOne({ resetToken: foundUser.resetToken })
+    const user = await this.UserModel.findOne({
+      resetToken: foundUser.resetToken,
+    })
     // const user = await this.UserModel.findOne({ resetToken: foundUser.resetToken })
 
     if (!foundUser || !user) {
@@ -204,9 +213,9 @@ export default class AuthService {
 
   /**
    * @desc signOutService
-   * @desc {  } 
-  */
-  async signOutService (auth) {
+   * @desc {  }
+   */
+  async signOutService(auth) {
     const token = auth.split(' ')[1]
     // insert an add to blacklist job here
     return { token }
@@ -214,9 +223,9 @@ export default class AuthService {
 
   /**
    * @desc delUserService
-  */
-  async delUserService (id) {
-    this.logger.debug('0️⃣  calling destroy user endpoint')
+   */
+  async delUserService(id) {
+    this.logger.debug('👉  calling destroy user endpoint')
 
     const user = await this.UserModel.findOne({ _id: id })
 
