@@ -2,6 +2,7 @@
   "name": "seesee-client",
   "version": "0.1.0",
   "private": true,
+  "proxy": "http://localhost:5025",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
@@ -25,9 +26,6 @@
     "redux-devtools-extension": "^2.13.8",
     "redux-thunk": "^2.3.0",
     "uuid": "^3.3.3"
-  },
-  "devDependencies": {
-    "cross-env": "^6.0.3"
   },
   "eslintConfig": {
     "extends": "react-app"

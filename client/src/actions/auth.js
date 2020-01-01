@@ -26,7 +26,7 @@ export const registerUser = (userData, history) => async dispatch => {
 // login - get user token
 export const loginUser = userData => async dispatch => {
   await axios
-    .post(`${config.api.local}/api/auth/signin`, userData)
+    .post(`${config.api.url}/api/auth/signin`, userData)
     .then(res => {
       const { authToken } = res.data
       localStorage.setItem('jwtToken', authToken)

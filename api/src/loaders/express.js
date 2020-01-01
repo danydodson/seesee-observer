@@ -28,15 +28,6 @@ export default ({ app: app }) => {
 
   app.use(config.app.apiPrefix, routes())
 
-  // if (process.env.NODE_ENV === 'production') {
-
-  //   app.use(express.static('src/client/build'))
-
-  //   app.get('*', (req, res) => {
-  //     res.sendFile(path.resolve(__dirname, '../../../client', 'build', 'index.html'))
-  //   })
-  // }
-
   app.use(errors.notFound)
   app.use(errors.serverErrors)
   app.use(errors.unauthErrors)
