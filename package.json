@@ -1,7 +1,6 @@
 {
-  "name": "connected",
+  "name": "seesee",
   "version": "0.1.0",
-  "homepage": "https://github.com/DanyDodson/connected#readme",
   "description": "Social network for artists",
   "author": "Dany Dodson",
   "keywords": [
@@ -16,7 +15,7 @@
   "scripts": {
     "start:api": "npm start --prefix api",
     "start:client": "npm start --prefix client",
-    "start": "concurrently \"npm run start:api\" \"npm run start:frontend\"",
+    "start": "concurrently \"npm run start:api\" \"npm run start:client\"",
     "deploy:api": "git subtree push --prefix api heroku master",
     "format": "prettier --trailing-comma es5 --single-quote --write '**/*.{js,md,json}'"
   },
@@ -24,13 +23,13 @@
     "api",
     "client"
   ],
+  "homepage": "https://github.com/DanyDodson/seesee#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/DanyDodson/connected.git"
+    "url": "git+https://github.com/DanyDodson/seesee.git"
   },
   "engines": {
-    "node": ">=12.14.0",
-    "npm": ">=6.13.4"
+    "node": ">=12.x.x"
   },
   "devDependencies": {
     "concurrently": "^5.0.2",

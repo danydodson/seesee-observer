@@ -9,6 +9,7 @@
 /client/build
 /client/node_modules
 /client/package-lock.json
+/frontend/build/*
 
 # backend
 /api/.env
