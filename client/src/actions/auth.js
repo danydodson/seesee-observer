@@ -12,12 +12,13 @@ import setAuthToken from '../utils/set-token'
 import jwt_decode from 'jwt-decode'
 import axios from 'axios'
 
+import config from '../config'
 import { setAlert } from './alert'
 
 // register user
 export const registerUser = (userData, history) => async dispatch => {
   await axios
-    .post(`${process.env.REACT_APP_BASE_URL_API}/api/auth/signup`, userData)
+    .post(`${config.api.url}/api/auth/signup`, userData)
     .then(res => history.push('/signin'))
     .catch(err => dispatch({ type: REGISTER_FAIL, payload: err }))
 }
@@ -25,7 +26,7 @@ export const registerUser = (userData, history) => async dispatch => {
 // login - get user token
 export const loginUser = userData => async dispatch => {
   await axios
-    .post(`${process.env.REACT_APP_BASE_URL_API}/api/auth/signin`, userData)
+    .post(`${config.api.local}/api/auth/signin`, userData)
     .then(res => {
       const { authToken } = res.data
       localStorage.setItem('jwtToken', authToken)

@@ -23,7 +23,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/DanyDodson/seesee.git"
+    "url": "git+https://github.com/DanyDodson/seesee"
   },
   "homepage": "https://github.com/DanyDodson/seesee#readme",
   "engines": {
