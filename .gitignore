@@ -3,7 +3,7 @@
 /package-lock.json
 /.vscode/settings.json
 
-# frontend
+# client
 /client/.env
 /api/logs/*.log
 /client/build
