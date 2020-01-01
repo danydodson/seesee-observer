@@ -9,7 +9,6 @@ import errors from '../middleware/errors'
 import helmet from 'helmet'
 
 export default ({ app: app }) => {
-
   app.get('/status', (req, res) => res.status(200).end())
 
   app.head('/status', (req, res) => res.status(200).end())
@@ -29,15 +28,14 @@ export default ({ app: app }) => {
 
   app.use(config.app.apiPrefix, routes())
 
-  if (process.env.NODE_ENV === 'production') {
-    app.use(express.static('../../../client/build'))
+  // if (process.env.NODE_ENV === 'production') {
 
-    app.get('*', (req, res) => {
-      res.sendFile(path.resolve(
-        __dirname, '../../../client', 'build', 'index.html')
-      )
-    })
-  }
+  //   app.use(express.static('src/client/build'))
+
+  //   app.get('*', (req, res) => {
+  //     res.sendFile(path.resolve(__dirname, '../../../client', 'build', 'index.html'))
+  //   })
+  // }
 
   app.use(errors.notFound)
   app.use(errors.serverErrors)
