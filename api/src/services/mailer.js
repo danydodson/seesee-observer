@@ -1,10 +1,19 @@
 import config from '../config'
 
 export default class MailerService {
-
-  constructor (container) {
+  constructor(container) {
     this.emailClient = container.get('emailClient')
-    this.setMailData = (email, template, subject, text, html, tag1, tag2, client, token) => {
+    this.setMailData = (
+      email,
+      template,
+      subject,
+      text,
+      html,
+      tag1,
+      tag2,
+      client,
+      token
+    ) => {
       return {
         to: email,
         from: `Dany Dodson ❤️ ${config.mailgun.name}`,
@@ -17,10 +26,9 @@ export default class MailerService {
         'v:verifyToken': token,
       }
     }
-
   }
 
-  async sendVerifyEmail (email, client, token) {
+  async sendVerifyEmail(email, client, token) {
     const data = this.setMailData(
       email,
       'verify_email',
@@ -30,13 +38,13 @@ export default class MailerService {
       'automated',
       'signup',
       client,
-      token,
+      token
     )
     await this.emailClient.messages().send(data)
     return { delivered: 1, status: 'ok' }
   }
 
-  async sendVerifiedEmail (email) {
+  async sendVerifiedEmail(email) {
     const data = this.setMailData(
       email,
       null,
@@ -46,13 +54,13 @@ export default class MailerService {
       'automated',
       'verified',
       null,
-      null,
+      null
     )
     await this.emailClient.messages().send(data)
     return { delivered: 1, status: 'ok' }
   }
 
-  async sendForgotPasswordEmail (email, client, token) {
+  async sendForgotPasswordEmail(email, client, token) {
     const data = this.setMailData(
       email,
       null,
@@ -62,13 +70,13 @@ export default class MailerService {
       'automated',
       'forgot password',
       client,
-      token,
+      token
     )
     await this.emailClient.messages().send(data)
     return { delivered: 1, status: 'ok' }
   }
 
-  async sendPasswordResetEmail (email) {
+  async sendPasswordResetEmail(email) {
     const data = this.setMailData(
       email,
       null,
@@ -78,13 +86,13 @@ export default class MailerService {
       'automated',
       'reset password',
       null,
-      null,
+      null
     )
     await this.emailClient.messages().send(data)
     return { delivered: 1, status: 'ok' }
   }
 
-  async startEmailSequence (sequence, user) {
+  async startEmailSequence(sequence, user) {
     if (!user.email) {
       throw new Error('no email provided')
     }
@@ -97,7 +105,6 @@ export default class MailerService {
      * Every sequence can have its own behavior so maybe
      * the pattern Chain of Responsibility can help here.
      * return { delivered: 1, status: 'ok' }
-   */
-
+     */
   }
 }

@@ -1,13 +1,12 @@
 import config from '../config'
-import passport from 'passport'
-import jwt from 'jsonwebtoken'
-import login from '../auth'
-import getUserByEmail from '../database/user'
+import crypto from 'crypto'
 
 export default class AuthService {
   constructor(container) {
     this.logger = container.get('logger')
     this.userModel = container.get('userModel')
+    this.setAuthToken = container.get('authToken')
+    this.verifyEmailToken = container.get('verifyToken')
     this.agendaJob = container.get('agendaInstance')
   }
 
@@ -15,107 +14,85 @@ export default class AuthService {
    * @desc testingService
    */
   async testingService() {
-    this.logger.debug('👉  calling auth test endpoint')
+    this.logger.debug('⭐  calling auth test endpoint')
     return { msg: 'auth test route working' }
   }
 
   /**
    * @desc signUpService
    */
-  async signUpService(body) {
-    this.logger.debug('👉  calling sign up endpoint')
+  async signUpService(userObject) {
+    this.logger.debug('⭐  calling sign up endpoint')
 
-    const newUser = await new this.userModel(body)
-    await newUser.setPassword(body.password)
-    const user = await newUser.save()
+    const salt = crypto.randomBytes(16).toString('hex')
+    const hash = crypto
+      .pbkdf2Sync(userObject.password, salt, 10000, 512, 'sha512')
+      .toString('hex')
 
-    if (!user) {
-      this.logger.error('❌ error on initial save of new user')
-      process.exitCode = 1
+    this.logger.debug('⭐  creating user')
+
+    const userRecord = await this.userModel.create({
+      ...userObject,
+      salt: salt,
+      hash: hash,
+    })
+
+    this.logger.debug('⭐  creating auth token')
+    const authToken = await this.setAuthToken(userObject)
+
+    if (!userRecord) {
+      this.logger.error('❌ user connot be created')
     }
 
-    this.logger.debug('1️⃣  created new user')
+    this.logger.debug('⭐  createing verify email token')
+    const verifyToken = await this.verifyEmailToken(userObject)
 
-    const getTokenObject = user => user.verifyEmailToken()
-    const tokenObject = await getTokenObject(user)
-    const token = tokenObject.toString()
-
-    user.verifyToken = token
-    await user.save()
+    const user = userRecord.toObject()
 
     const mailData = {
       email: user.email,
       client: config.url.client,
-      token: token,
+      token: verifyToken,
     }
     await this.agendaJob.now('send-verify-account-email', mailData)
 
-    const userData = await user.authUserToJSON()
-    return { userData }
+    return { user, authToken, verifyToken }
   }
 
   /**
    * @desc signInService
    */
-  async signInService(body) {
-    this.logger.debug('👉  calling sign in endpoint')
+  async signInService(email, password) {
+    this.logger.debug('⭐  calling sign in endpoint')
 
-    const user = await getUserByEmail({ email: body.email })
-    this.logger.debug(user)
+    const userRecord = await this.userModel.findOne({ email })
 
-    if (!user) {
-      throw new Error('user not found')
+    if (!userRecord) {
+      throw new Error('user is not registered')
     }
 
-    // const userData = passport.authenticate('local', { session: false })
-    // await login(req, user)
+    let hash = await crypto
+      .pbkdf2Sync(password, userRecord.salt, 10000, 512, 'sha512')
+      .toString('hex')
 
-    // if (user) {
-    //   token = await user.authUserToken()
-    // } else {
-    // If user is not found
-    // res.status(401).json(info)
-    // }
+    if (userRecord.hash === hash) {
+      const token = await this.setAuthToken(userRecord)
 
-    // const isVallid = await user.validPassword(user.hash)
+      const user = userRecord.toObject()
+      Reflect.deleteProperty(user, 'hash')
+      Reflect.deleteProperty(user, 'salt')
 
-    // const userData = await user.authUserToken()
-
-    // return { user }
-  }
-
-  /**
-   * @desc getUserService
-   */
-  async getUserService(id) {
-    this.logger.debug('👉  calling get user endpoint')
-
-    const user = await this.UserModel.findOne({ _id: id })
-
-    if (!user) {
-      throw new Error('user not found')
+      return { user, token }
+    } else {
+      throw new Error('invalid credentials')
     }
-    const options = {
-      issuer: 'seesee.com',
-      // subject: 'verify_email',
-      expiresIn: Math.floor(Date.now() / 1000) + 60 * 60,
-    }
-
-    // userData = jwt.verify(token, config.app.jwtSecret, options)
-    // await passport.authenticate('jwt', { session: false })
-    // await passport.authenticate('jwt', { session: false })
-    const userData = passport.authenticate('jwt', { session: false })
-
-    // const userData = user.authUserToJSON()
-
-    return { userData }
   }
 
   /**
    * @desc setVerifiedService
    */
   async setVerifiedService(token) {
-    this.logger.debug('👉  calling verified email endpoint')
+    this.logger.debug('⭐  calling verified email endpoint')
 
     const user = await this.UserModel.findOne({ verifyToken: token })
 
@@ -148,7 +125,7 @@ export default class AuthService {
    * @desc forgotPassService
    */
   async forgotPassService(id) {
-    this.logger.debug('👉  calling forgot password endpoint')
+    this.logger.debug('⭐  calling forgot password endpoint')
 
     const user = await this.UserModel.findOne({ _id: id })
 
@@ -181,7 +158,7 @@ export default class AuthService {
    * @desc resetPassService
    */
   async resetPassService(id, userInput) {
-    this.logger.debug('👉  calling reset password endpoint')
+    this.logger.debug('⭐  calling reset password endpoint')
 
     const foundUser = await this.UserModel.findOne({ _id: id })
     const user = await this.UserModel.findOne({
@@ -225,7 +202,7 @@ export default class AuthService {
    * @desc delUserService
    */
   async delUserService(id) {
-    this.logger.debug('👉  calling destroy user endpoint')
+    this.logger.debug('⭐  calling destroy user endpoint')
 
     const user = await this.UserModel.findOne({ _id: id })
 

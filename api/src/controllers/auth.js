@@ -6,7 +6,7 @@ import AuthService from '../services/auth'
  * @desc auth test route
  * @route GET /api/auth
  * @auth public
-*/
+ */
 export const testingCtrl = asyncHandler(async (req, res, next) => {
   const authServiceInstance = await Container.get(AuthService)
   const msg = await authServiceInstance.testingService()
@@ -17,11 +17,15 @@ export const testingCtrl = asyncHandler(async (req, res, next) => {
  * @desc register new user
  * @route POST /api/auth/signup
  * @auth public
-*/
+ */
 export const signUpCtrl = asyncHandler(async (req, res, next) => {
   const authServiceInstance = await Container.get(AuthService)
-  const { userData } = await authServiceInstance.signUpService(req.body)
-  return res.status(201).json(userData)
+  const {
+    user,
+    authToken,
+    verifyToken,
+  } = await authServiceInstance.signUpService(req.body)
+  return res.status(201).json({ user, authToken, verifyToken })
 })
 
 /**
@@ -30,32 +34,34 @@ export const signUpCtrl = asyncHandler(async (req, res, next) => {
  * @auth public
  */
 export const signInCtrl = asyncHandler(async (req, res, next) => {
+  const { email, password } = req.body
   const authServiceInstance = await Container.get(AuthService)
-  const { userData } = await authServiceInstance.signInService(req.body)
-  // await res.cookie('jwt', jwt, { httpOnly: true, secure: true })
-  return res.status(201).json(userData)
+  const { user, token } = await authServiceInstance.signInService(
+    email,
+    password
+  )
+  return res.status(201).json({ user, token })
 })
 
 /**
  * @desc get jwt payload for user
  * @route GET /api/auth/details
  * @auth private
-*/
+ */
 export const getUserCtrl = asyncHandler(async (req, res, next) => {
-  const authServiceInstance = await Container.get(AuthService)
-  const { userData } = await authServiceInstance.getUserService(req.payload.id)
-  if (userData) req.jwt = userData
-  return res.status(200).json(req)
+  return res.status(200).json({ user: req.currentUser })
 })
 
 /**
  * @desc verify email & continue to create profile
  * @route PUT /api/auth/verify-email
  * @auth private
-*/
+ */
 export const setVerifiedCtrl = asyncHandler(async (req, res, next) => {
   const authServiceInstance = await Container.get(AuthService)
-  const { user } = await authServiceInstance.setVerifiedService(req.payload.verifyToken)
+  const { user } = await authServiceInstance.setVerifiedService(
+    req.payload.verifyToken
+  )
   next()
 })
 
@@ -63,10 +69,12 @@ export const setVerifiedCtrl = asyncHandler(async (req, res, next) => {
  * @desc create & mail password reset token
  * @route PUT /api/auth/forgot-password
  * @auth private
-*/
+ */
 export const forgotPassCtrl = asyncHandler(async (req, res, next) => {
   const authServiceInstance = await Container.get(AuthService)
-  const { userData } = await authServiceInstance.forgotPassService(req.payload.id)
+  const { userData } = await authServiceInstance.forgotPassService(
+    req.payload.id
+  )
   return res.status(200).json(userData)
 })
 
@@ -74,10 +82,13 @@ export const forgotPassCtrl = asyncHandler(async (req, res, next) => {
  * @desc verifies resetToken and sets new password
  * @route PUT /api/auth/reset-password
  * @auth private
-*/
+ */
 export const resetPassCtrl = asyncHandler(async (req, res, next) => {
   const authServiceInstance = await Container.get(AuthService)
-  const { userData } = await authServiceInstance.resetPassService(req.payload.id, req.body)
+  const { userData } = await authServiceInstance.resetPassService(
+    req.payload.id,
+    req.body
+  )
   return res.status(200).json(userData)
 })
 
@@ -87,10 +98,12 @@ export const resetPassCtrl = asyncHandler(async (req, res, next) => {
  * so the device stops receiving push notifications after logout.
  * @route GET /api/auth/signout
  * @auth private
-*/
+ */
 export const signOutCtrl = asyncHandler(async (req, res, next) => {
   const authServiceInstance = await Container.get(AuthService)
-  const { token } = await authServiceInstance.signOutService(req.headers['authorization'])
+  const { token } = await authServiceInstance.signOutService(
+    req.headers['authorization']
+  )
   return res.status(200).json(token)
 })
 
@@ -98,7 +111,7 @@ export const signOutCtrl = asyncHandler(async (req, res, next) => {
  * @desc deletes one user
  * @route DELETE /api/auth/delete
  * @auth private
-*/
+ */
 export const delUserCtrl = asyncHandler(async (req, res, next) => {
   const authServiceInstance = await Container.get(AuthService)
   await authServiceInstance.delUserService(req.payload.id)

@@ -1,25 +1,23 @@
-import dotenv from 'dotenv'
+import { config } from 'dotenv'
 
 process.env.NODE_ENV = process.env.NODE_ENV || 'development'
 
-if (!dotenv.config()) {
-  throw new Error('[error] ⚠️ Couldn\'t find .env file')
-  // this should crash if .env isnt found
+if (!config()) {
+  throw new Error('[error] ⚠️ Couldnt find .env file')
 }
 
 export default {
-
   app: {
     apiPrefix: '/api',
     env: process.env.NODE_ENV,
     port: parseInt(process.env.PORT, 10),
     jwtSecret: process.env.JWT_SECRET,
-    jwtExpiration: Math.floor(Date.now() / 1000) + (60 * 60),
+    jwtExpiration: Math.floor(Date.now() / 1000) + 60 * 60,
   },
 
   url: {
     api: process.env.BASE_URL,
-    client: process.env.BASE_URL_CLIENT
+    client: process.env.BASE_URL_CLIENT,
   },
 
   agenda: {
@@ -36,7 +34,6 @@ export default {
   },
 
   logs: {
-    // ...debug, verbose, info, warn, error 
     level: process.env.LOG_LEVEL || 'silly',
   },
 
@@ -45,10 +42,8 @@ export default {
     liscense: process.env.NEW_RELIC_LICENSE_KEY,
   },
 
-  mongo: {
-    development: process.env.MONGO_DEVELOPMENT_URI,
-    testing: process.env.MONGO_TESTING_URI,
-    production: process.env.MONGO_PRODUCTION_URI,
-  },
-
+  mongo:
+    process.env.NODE_ENV === 'production'
+      ? process.env.MONGO_PRODUCTION_URI
+      : process.env.MONGO_DEVELOPMENT_URI,
 }

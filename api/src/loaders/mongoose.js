@@ -1,24 +1,13 @@
-import mongoose from 'mongoose'
+import { connect } from 'mongoose'
 import config from '../config'
 
-let db = null
-const env = config.app.env
-
-if (env === 'development') db = config.mongo.development
-if (env === 'test') db = config.mongo.testing
-if (env === 'production') db = config.mongo.production
-
 export default async () => {
-
-  const connection = await mongoose.connect(
-    db,
-    {
-      useNewUrlParser: true,
-      useCreateIndex: true,
-      useFindAndModify: false,
-      useUnifiedTopology: true,
-    }
-  )
+  const connection = await connect(config.mongo, {
+    useNewUrlParser: true,
+    useCreateIndex: true,
+    useFindAndModify: false,
+    useUnifiedTopology: true,
+  })
 
   return connection.connection.db
 }

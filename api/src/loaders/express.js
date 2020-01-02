@@ -1,12 +1,10 @@
 import cors from 'cors'
-import express from 'express'
 import path from 'path'
-import cookieParser from 'cookie-parser'
-import passport from 'passport'
-import config from '../config'
-import routes from '../routes'
+import express from 'express'
 import errors from '../middleware/errors'
 import helmet from 'helmet'
+import routes from '../routes'
+import config from '../config'
 
 export default ({ app: app }) => {
   app.get('/status', (req, res) => res.status(200).end())
@@ -19,12 +17,6 @@ export default ({ app: app }) => {
   app.use(helmet())
 
   app.use(express.json())
-  app.use(cookieParser())
-
-  app.use(passport.initialize())
-  // initialiseAuthentication(app)
-
-  require('../auth')
 
   app.use(config.app.apiPrefix, routes())
 
