@@ -1,5 +1,5 @@
-import Service from 'typedi'
-import Container from 'typedi'
+import { Service } from 'typedi'
+import { Container } from 'typedi'
 
 const PostRepository = Service(() => ({
   getName() {

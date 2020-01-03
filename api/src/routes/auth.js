@@ -43,13 +43,38 @@ export default (app, route = Router()) => {
     validateResults,
     asyncHandler(signInCtrl)
   )
-
   route.get('/details', auth.required, attachUser, asyncHandler(getUserCtrl))
 
-  // route.put('/verify-email', auth.required, validateIsVerified, validateResults, asyncHandler(setVerifiedCtrl), asyncHandler(newProfileCtrl))
-  // route.put('/forgot-password', auth.required, asyncHandler(forgotPassCtrl))
-  // route.put('/reset-password', auth.required, validateReset, validateResults, asyncHandler(resetPassCtrl))
+  route.put(
+    '/verify-email',
+    auth.required,
+    attachUser,
+    validateIsVerified,
+    validateResults,
+    asyncHandler(setVerifiedCtrl),
+    asyncHandler(newProfileCtrl)
+  )
+  route.put(
+    '/forgot-password',
+    auth.required,
+    attachUser,
+    asyncHandler(forgotPassCtrl)
+  )
+  route.put(
+    '/reset-password',
+    auth.required,
+    attachUser,
+    validateReset,
+    validateResults,
+    asyncHandler(resetPassCtrl)
+  )
 
-  // route.get('/signout', auth.required, asyncHandler(signOutCtrl))
-  // route.delete('/destroy', auth.required, asyncHandler(delProfileCtrl), asyncHandler(delUserCtrl))
+  route.get('/signout', auth.required, attachUser, asyncHandler(signOutCtrl))
+  route.delete(
+    '/destroy',
+    auth.required,
+    attachUser,
+    asyncHandler(delProfileCtrl),
+    asyncHandler(delUserCtrl)
+  )
 }
