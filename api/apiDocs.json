@@ -23,9 +23,9 @@
 
   "/api/artists": "get artists",
   "/api/artists/create": "create artist",
-  "/api/artists/:pro_name": "get/update artist",
-  "/api/artists/follow": "follow artist",
-  "/api/artists/unfollow": "unfollow artist",
+  "/api/artist/:profile_name": "get/update artist",
+  "/api/artist/follow": "follow artist",
+  "/api/artist/unfollow": "unfollow artist",
 
   "/api/see": "",
   "/api/see/create": "",
