@@ -49,6 +49,8 @@ export const signInCtrl = asyncHandler(async (req, res, next) => {
  * @auth private
  */
 export const getUserCtrl = asyncHandler(async (req, res, next) => {
+  const logger = Container.get('logger')
+  logger.debug('⭐  calling get current user endpoint')
   return res.status(200).json({ user: req.currentUser })
 })
 

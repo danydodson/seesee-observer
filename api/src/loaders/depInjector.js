@@ -24,10 +24,7 @@ export default ({ mongoConnection, models }) => {
 
     Container.set(
       'emailClient',
-      mailgun({
-        apiKey: config.mailgun.apiKey,
-        domain: config.mailgun.domain,
-      })
+      mailgun({ apiKey: config.mailgun.apiKey, domain: config.mailgun.domain })
     )
 
     loggerInstance.info('✨  agenda injected into container')

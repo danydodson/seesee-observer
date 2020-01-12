@@ -16,7 +16,7 @@ export default class MailerService {
     ) => {
       return {
         to: email,
-        from: `Dany Dodson ❤️ ${config.mailgun.name}`,
+        from: `Dany Dodson 💌 ❤️ ${config.mailgun.name}`,
         template: template,
         subject: subject,
         text: text,

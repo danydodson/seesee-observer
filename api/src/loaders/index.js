@@ -8,11 +8,11 @@ import CommentModel from '../models/Comment'
 import MessageModel from '../models/Message'
 
 import depInjectorLoader from './depInjector'
+import eventsLoader from './events'
 import jobsLoader from './jobs'
 import expressLoader from './express'
 
 export default async ({ expressApp }) => {
-
   const mongoConnection = await mongooseLoader()
   logger.info('✨  mongodb loaded and connected')
 

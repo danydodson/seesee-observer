@@ -1,5 +1,5 @@
 import { Container } from 'typedi'
-
+import { EventSubscriber, On } from 'event-dispatch'
 import events from './events'
 
 // @EventSubscriber()
