@@ -1,6 +1,8 @@
 # Connected
 
-[![time tracker](https://wakatime.com/badge/github/DanyDodson/seenery.svg)](https://wakatime.com/badge/github/DanyDodson/seenery)
+<!-- [![time tracker](https://wakatime.com/badge/github/DanyDodson/seesee.svg)](https://wakatime.com/badge/github/DanyDodson/seesee) -->
+
+[![time tracker](https://wakatime.com/badge/github/DanyDodson/seesee.svg)](https://wakatime.com/@DanyDodson/projects/ndumdutwuw)
 
 > Social network for developers
 
