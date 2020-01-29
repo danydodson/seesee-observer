@@ -1,13 +1,11 @@
 import { Container } from 'typedi'
 import MailerService from '../services/mailer'
 
-export default class SendPasswordResetJob {
-
-  async handler (job, done) {
+export default class resetPasswordJob {
+  async handler(job, done) {
     const logger = Container.get('logger')
 
     try {
-
       logger.debug('✔️ send password reset job triggered')
 
       const { email } = job.attrs.data

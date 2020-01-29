@@ -8,13 +8,16 @@ const env = config.app.env
 const port = config.app.port
 
 const startServer = async () => {
-
   await expressApp({ expressApp: app })
 
-  app.listen(port, () => {
-    logger.info(`✨  ${env} server listening on port ${port}`)
+  app.listen(port, err => {
+    if (err) {
+      logger.error(err)
+      process.exit(1)
+      return
+    }
+    logger.info(`⭐  ${env} server on port ${port}`)
   })
-
 }
 
 startServer()

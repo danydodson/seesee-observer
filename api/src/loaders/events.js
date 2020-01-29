@@ -1,17 +1,9 @@
-import EventEmitter from 'events'
+import { onTesting } from '../events/onTesting'
+import { sendVerify } from '../events/onSignUp'
+import { sendVerified } from '../events/onVerified'
 
-export default ({ event = new EventEmitter() }) => {
-  const sendMailEvent = E,
-    context = { foo: 'bar' }
-
-  function emitted() {
-    console.log(this === context) // true
-  }
-
-  event.on(
-    'event-name',
-    // new CreateVerifyTokenJob().handler,
-    emitted,
-    context
-  )
+export default ee => {
+  ee.on('onTest', onTesting.sendMsg)
+  ee.on('onSignUp', sendVerify.email)
+  ee.on('onVerified', sendVerified.email)
 }

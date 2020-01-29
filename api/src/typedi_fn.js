@@ -20,7 +20,7 @@ class PostQueryBuilder {
 }
 
 let PostController = Service(
-  [PostManager, PostRepository, PostQueryBuilder],
+  [PostRepository, PostManager, PostQueryBuilder],
   (manager, repository, queryBuilder) => {
     return {
       id: manager.getId(),

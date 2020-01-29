@@ -1,39 +1,80 @@
+import config from '../config'
 import { Container } from 'typedi'
-import { EventSubscriber, On } from 'event-dispatch'
-import events from './events'
+import MailerService from '../services/mailer'
+import attachListeners from '../loaders/events'
+import { EventTest } from '../events/onTesting'
+import { OnSignUp } from '../events/onSignUp'
+import { EventEmitter } from 'events'
 
-// @EventSubscriber()
+const ee = new EventEmitter()
+
+attachListeners(ee)
+
 export default class UserSubscriber {
-  /**
-   * Use another approach like emit events to a queue (rabbitmq/aws sqs),
-   * then save the latest in Redis/Memcache or something similar
-   */
-  // @On(events.user.signIn)
-  async onUserSignIn(_id) {
-    const Logger = Container.get('logger')
+  constructor() {}
+
+  async onTest() {
+    const logger = Container.get('logger')
+    const eventTest = new EventTest(ee)
     try {
-      const UserModel = Container.get('UserModel')
-      UserModel.update({ _id }, { $set: { lastLogin: new Date() } })
+      logger.debug('⏰  user test event triggered')
+      const testMsg = 'user subscriber test event working'
+      await eventTest.create({ txt: testMsg })
+      return { testMsg }
     } catch (e) {
-      Logger.error(`🔥 Error on event ${events.user.signIn}: %o`, e)
-      // Throw the error so the process die (check src/app.ts)
-      throw e
+      logger.error('🔥  error on user test event' + e)
     }
   }
 
-  // @On(events.user.signUp)
-  async onUserSignUp(name, email, _id) {
-    const Logger = Container.get('logger')
+  async onSignUp(email) {
+    const logger = Container.get('logger')
+    const userModel = Container.get('userModel')
+    const mailerServiceInstance = Container.get(MailerService)
+    const signUp = new OnSignUp(ee)
     try {
-      // Call the tracker tool so your investor knows that there is a new signup
-      // and leave you alone for another hour.
-      // TrackerService.track('user.signup', { email, _id })
-      // Start your email sequence or whatever
-      // MailService.startSequence('user.welcome', { email, name })
+      logger.debug('⏰  user signup event triggered')
+      // 1. call the tracker tool: trackerService.track('user.signup', { email, _id })
+      const user = await userModel.findOne({ email: email })
+      await mailerServiceInstance.sendVerifyEmail(
+        user.email,
+        config.url.client,
+        user.verifyToken
+      )
+      await signUp.sendMail({ email: user.email })
+      return { user }
     } catch (e) {
-      Logger.error(`🔥 Error on event ${events.user.signUp}: %o`, e)
-      // Throw the error so the process dies (check src/app.ts)
-      throw e
+      logger.error('🔥  error on signup event' + e)
+    }
+  }
+
+  async onVerified(email) {
+    const logger = Container.get('logger')
+    const userModel = Container.get('userModel')
+    const mailerServiceInstance = Container.get(MailerService)
+    const signUp = new OnSignUp(ee)
+    try {
+      logger.debug('⏰  user signup event triggered')
+      // 1. call the tracker tool: trackerService.track('user.signup', { email, _id })
+      const user = await userModel.findOne({ email: email })
+      await mailerServiceInstance.sendVerifyEmail(
+        user.email,
+        config.url.client,
+        user.verifyToken
+      )
+      await signUp.sendMail({ email: user.email })
+      return { user }
+    } catch (e) {
+      logger.error('🔥  error on signup event' + e)
+    }
+  }
+
+  // use another approach like emit events to a queue,then save the latest in redis
+  async onSignIn(id) {
+    const logger = Container.get('logger')
+    try {
+      logger.debug('⏰  user signin event triggered')
+    } catch (e) {
+      logger.error('🔥  error on signin event' + e)
     }
   }
 }

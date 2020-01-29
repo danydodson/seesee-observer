@@ -1,0 +1,65 @@
+{
+  "name": "seesee",
+  "description": "Social network for artists",
+  "keywords": [
+    "cron",
+    "jobs",
+    "js",
+    "javascript",
+    "node",
+    "express"
+  ],
+  "website": "https://seesee.com",
+  "repository": "https://github.com/DanyDodson/seesee",
+  "logo": "https://seesee.com/logo.svg",
+  "success_url": "/welcome",
+  "scripts": {
+    "postdeploy": "bundle exec rake bootstrap"
+  },
+  "env": {
+    "JWT_SECRET": {
+      "description": "A secret key for verifying the integrity of signed cookies.",
+      "generator": "secret"
+    },
+    "WEB_CONCURRENCY": {
+      "description": "The number of processes to run.",
+      "value": "5"
+    },
+    "BASE_URL_API": { "description": "", "value": "" },
+    "BASE_URL_CLIENT": { "description": "", "value": "" },
+    "MONGO_DEVELOPMENT_URI": { "description": "", "value": "" },
+    "MONGO_PRODUCTION_URI": { "description": "", "value": "" },
+    "LOG_LEVEL": { "description": "", "value": "" }
+  },
+  "formation": {
+    "web": {
+      "quantity": 2,
+      "size": "Performance-M"
+    }
+  },
+  "image": "heroku/ruby",
+  "addons": [
+    "openredis",
+    {
+      "plan": "mongolab:shared-single-small",
+      "as": "MONGO"
+    },
+    {
+      "plan": "heroku-postgresql",
+      "options": {
+        "version": "9.5"
+      }
+    }
+  ],
+  "buildpacks": [
+  {
+    "url": "https://github.com/stomita/heroku-buildpack-phantomjs"
+  }],
+  "environments": {
+    "test": {
+      "scripts": {
+        "test": "bundle exec rake test"
+      }
+    }
+  }
+}

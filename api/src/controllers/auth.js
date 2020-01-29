@@ -1,6 +1,7 @@
 import asyncHandler from 'express-async-handler'
 import { Container } from 'typedi'
 import AuthService from '../services/auth'
+import UserSubscriber from '../subscribers/user'
 
 /**
  * @desc auth test route
@@ -9,8 +10,10 @@ import AuthService from '../services/auth'
  */
 export const testingCtrl = asyncHandler(async (req, res, next) => {
   const authServiceInstance = await Container.get(AuthService)
-  const msg = await authServiceInstance.testingService()
-  return res.status(201).json({ msg })
+  const { jsonMsg } = await authServiceInstance.testingService()
+  const UserSubscriberInstance = await Container.get(UserSubscriber)
+  await UserSubscriberInstance.onTest()
+  return res.status(201).json({ jsonMsg })
 })
 
 /**
@@ -25,6 +28,8 @@ export const signUpCtrl = asyncHandler(async (req, res, next) => {
     authToken,
     verifyToken,
   } = await authServiceInstance.signUpService(req.body)
+  const UserSubscriberInstance = await Container.get(UserSubscriber)
+  await UserSubscriberInstance.onSignUp(user.email)
   return res.status(201).json({ user, authToken, verifyToken })
 })
 

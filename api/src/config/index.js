@@ -39,7 +39,7 @@ export default {
 
   newRelic: {
     appName: process.env.NEW_RELIC_APP_NAME,
-    liscense: process.env.NEW_RELIC_LICENSE_KEY,
+    license: process.env.NEW_RELIC_LICENSE_KEY,
   },
 
   mongo:

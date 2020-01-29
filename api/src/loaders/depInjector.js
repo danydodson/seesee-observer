@@ -27,11 +27,11 @@ export default ({ mongoConnection, models }) => {
       mailgun({ apiKey: config.mailgun.apiKey, domain: config.mailgun.domain })
     )
 
-    loggerInstance.info('✨  agenda injected into container')
+    loggerInstance.info('⭐  agenda injected into container')
 
     return { agenda: agendaInstance }
   } catch (e) {
-    loggerInstance.error('❌ error on dependency injector loader:' + e)
+    loggerInstance.error('🔥 error on dependency injector loader:' + e)
     throw e
   }
 }

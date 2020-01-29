@@ -2,12 +2,10 @@ import { Container } from 'typedi'
 import MailerService from '../services/mailer'
 
 export default class SendVerifiedEmailJob {
-
-  async handler (job, done) {
+  async handler(job, done) {
     const logger = Container.get('logger')
 
     try {
-
       logger.debug('✔️ send verified account confirmation job triggered')
 
       const { email } = job.attrs.data

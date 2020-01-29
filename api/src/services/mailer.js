@@ -1,5 +1,10 @@
 import config from '../config'
 
+const checkIsReply = subject => {
+  const alreadyReplied = subject.substring(0, 4) == 'Re: '
+  return alreadyReplied
+}
+
 export default class MailerService {
   constructor(container) {
     this.emailClient = container.get('emailClient')
@@ -16,7 +21,7 @@ export default class MailerService {
     ) => {
       return {
         to: email,
-        from: `Dany Dodson 💌 ❤️ ${config.mailgun.name}`,
+        from: `Dany Dodson 💌 ${config.mailgun.name}`,
         template: template,
         subject: subject,
         text: text,
@@ -60,6 +65,33 @@ export default class MailerService {
     return { delivered: 1, status: 'ok' }
   }
 
+  async sendResponseEmail(receivedEmail) {
+    const email = receivedEmail
+
+    const isReply = checkIsReply(email.subject)
+
+    let subject
+    if (isReply) {
+      subject = email.subject
+    } else {
+      subject = 'Re: ' + email.subject
+    }
+
+    const data = this.setMailData(
+      email,
+      null,
+      subject,
+      'This is a response to !',
+      '<p>This is a response to !</p>',
+      'automated',
+      'response',
+      null,
+      null
+    )
+    await this.emailClient.messages().send(data)
+    return { delivered: 1, status: 'ok' }
+  }
+
   async sendForgotPasswordEmail(email, client, token) {
     const data = this.setMailData(
       email,
@@ -96,7 +128,6 @@ export default class MailerService {
     if (!user.email) {
       throw new Error('no email provided')
     }
-
     /** @TODO Add example of an email sequence implementation
      * Something like
      * 1 - Send first email of the sequence

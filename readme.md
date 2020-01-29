@@ -1,5 +1,7 @@
 # Connected
 
+[![time tracker](https://wakatime.com/badge/github/DanyDodson/seenery.svg)](https://wakatime.com/badge/github/DanyDodson/seenery)
+
 > Social network for developers
 
 ## Quick Start

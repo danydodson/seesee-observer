@@ -14,22 +14,22 @@ export default class AuthService {
    * @desc testingService
    */
   async testingService() {
-    this.logger.debug('⭐  calling auth test endpoint')
-    return { msg: 'auth test route working' }
+    this.logger.debug('👞  calling auth test endpoint')
+    return { jsonMsg: 'auth test route working' }
   }
 
   /**
    * @desc signUpService
    */
   async signUpService(userObject) {
-    this.logger.debug('⭐  calling sign up endpoint')
+    this.logger.debug('👞  calling sign up endpoint')
 
     const salt = crypto.randomBytes(16).toString('hex')
     const hash = crypto
       .pbkdf2Sync(userObject.password, salt, 10000, 512, 'sha512')
       .toString('hex')
 
-    this.logger.debug('⭐  creating user')
+    this.logger.debug('⏳  creating user')
 
     const userRecord = await this.userModel.create({
       ...userObject,
@@ -37,24 +37,21 @@ export default class AuthService {
       hash: hash,
     })
 
-    this.logger.debug('⭐  creating auth token')
+    this.logger.debug('⏳  creating auth token')
     const authToken = await this.setAuthToken(userObject)
 
     if (!userRecord) {
-      this.logger.error('❌ user connot be created')
+      this.logger.error('🔥  user connot be created')
     }
 
-    this.logger.debug('⭐  createing verify email token')
+    this.logger.debug('⏳  createing verify email token')
     const verifyToken = await this.verifyEmailToken(userObject)
 
     const user = userRecord.toObject()
 
-    const mailData = {
-      email: user.email,
-      client: config.url.client,
-      token: verifyToken,
-    }
-    await this.agendaJob.now('send-verify-account-email', mailData)
+    // const mailData = { email: user.email, client: config.url.client, token: verifyToken }
+
+    // await this.agendaJob.now('send-verify-account-email', mailData)
 
     return { user, authToken, verifyToken }
   }
@@ -63,12 +60,12 @@ export default class AuthService {
    * @desc signInService
    */
   async signInService(email, password) {
-    this.logger.debug('⭐  calling sign in endpoint')
+    this.logger.debug('👞  calling sign in endpoint')
 
     const userRecord = await this.userModel.findOne({ email })
 
     if (!userRecord) {
-      throw new Error('user is not registered')
+      throw new Error('🔥  user is not registered')
     }
 
     let hash = await crypto
@@ -84,7 +81,7 @@ export default class AuthService {
 
       return { user, token }
     } else {
-      throw new Error('invalid credentials')
+      throw new Error('🔥  invalid credentials')
     }
   }
 
@@ -92,14 +89,14 @@ export default class AuthService {
    * @desc setVerifiedService
    */
   async setVerifiedService(token) {
-    this.logger.debug('⭐  calling verified email endpoint')
+    this.logger.debug('👞  calling verified email endpoint')
 
     const user = await this.UserModel.findOne({ verifyToken: token })
 
     if (!user) {
       process.exit(1)
-      this.logger.error('❌ error on finding a user by verifyToken')
-      throw new Error('no user found to verify')
+      this.logger.error('🔥 error on finding a user by verifyToken')
+      throw new Error('🔥  no user found to verify')
     }
 
     user.verified = true
@@ -109,7 +106,7 @@ export default class AuthService {
     let updatedUser = await user.save()
 
     if (!updatedUser) {
-      throw new Error('error updating user')
+      throw new Error('🔥  error updating user')
     }
 
     // TODO validation isnt called if this func is called again
@@ -125,12 +122,12 @@ export default class AuthService {
    * @desc forgotPassService
    */
   async forgotPassService(id) {
-    this.logger.debug('⭐  calling forgot password endpoint')
+    this.logger.debug('👞  calling forgot password endpoint')
 
     const user = await this.UserModel.findOne({ _id: id })
 
     if (!user) {
-      throw new Error('user not found')
+      throw new Error('🔥  user not found')
     }
 
     const getTokenObject = user => user.forgotPasswordToken()
@@ -158,7 +155,7 @@ export default class AuthService {
    * @desc resetPassService
    */
   async resetPassService(id, userInput) {
-    this.logger.debug('⭐  calling reset password endpoint')
+    this.logger.debug('👞  calling reset password endpoint')
 
     const foundUser = await this.UserModel.findOne({ _id: id })
     const user = await this.UserModel.findOne({
@@ -167,7 +164,7 @@ export default class AuthService {
     // const user = await this.UserModel.findOne({ resetToken: foundUser.resetToken })
 
     if (!foundUser || !user) {
-      throw new Error('invalid reset password link')
+      throw new Error('🔥  invalid reset password link')
     }
 
     await user.setPassword(userInput.newPassword)
@@ -178,7 +175,7 @@ export default class AuthService {
     const updatedUser = await user.save()
 
     if (!updatedUser) {
-      throw new Error('error updating password')
+      throw new Error('🔥  error updating password')
     }
 
     await this.agendaJob.now('send-password-reset-email', { email: user.email })
@@ -202,18 +199,18 @@ export default class AuthService {
    * @desc delUserService
    */
   async delUserService(id) {
-    this.logger.debug('⭐  calling destroy user endpoint')
+    this.logger.debug('👞  calling destroy user endpoint')
 
     const user = await this.UserModel.findOne({ _id: id })
 
     if (!foundUser || user) {
-      throw new Error('user not found')
+      throw new Error('🔥  user not found')
     }
 
     const del = await this.UserModel.findOneAndRemove({ _id: user._id })
 
     if (!del) {
-      throw new Error('error deleting user')
+      throw new Error('🔥  error deleting user')
     }
 
     return

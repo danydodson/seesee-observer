@@ -8,13 +8,12 @@ import CommentModel from '../models/Comment'
 import MessageModel from '../models/Message'
 
 import depInjectorLoader from './depInjector'
-import eventsLoader from './events'
 import jobsLoader from './jobs'
 import expressLoader from './express'
 
 export default async ({ expressApp }) => {
   const mongoConnection = await mongooseLoader()
-  logger.info('✨  mongodb loaded and connected')
+  logger.info('⭐  mongodb loaded and connected')
 
   const userModel = { name: 'userModel', model: UserModel }
   const profileModel = { name: 'profileModel', model: ProfileModel }
@@ -27,11 +26,11 @@ export default async ({ expressApp }) => {
     models: [userModel, profileModel, postModel, commentModel, messageModel],
   })
 
-  logger.info('✨  dependency injector loaded')
+  logger.info('⭐  dependency injector loaded')
 
   await jobsLoader({ agenda })
-  logger.info('✨  agenda jobs loaded')
+  logger.info('⭐  agenda jobs loaded')
 
   await expressLoader({ app: expressApp })
-  logger.info('✨  express setup and loaded')
+  logger.info('⭐  express setup and loaded')
 }
