@@ -7,5 +7,5 @@ export default [
         .unescape()
         .exists().withMessage('content is required')
     ,
-    sanitizeBody('notifyOnReply').toBoolean()
+    // sanitizeBody('notifyOnReply').toBoolean()
 ]

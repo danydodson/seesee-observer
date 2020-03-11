@@ -9,9 +9,9 @@
     "node",
     "express"
   ],
-  "website": "https://seesee.com",
-  "repository": "https://github.com/DanyDodson/seesee",
-  "logo": "https://seesee.com/logo.svg",
+  "website": "https://seesee.space",
+  "repository": "https://github.com/danydodson/seesee",
+  "logo": "https://seesee.space/logo.svg",
   "success_url": "/welcome",
   "scripts": {
     "postdeploy": "bundle exec rake bootstrap"

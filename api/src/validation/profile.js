@@ -44,5 +44,5 @@ export default [
     .trim()
     .escape()
     .unescape(),
-  sanitizeBody('notifyOnReply').toBoolean()
+  // sanitizeBody('notifyOnReply').toBoolean()
 ]

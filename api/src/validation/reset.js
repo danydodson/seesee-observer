@@ -16,5 +16,5 @@ export default [
         .unescape()
         .exists({ checkFalsy: true, checkNull: true }).withMessage('confirm password required')
         .if(check('newPassword').exists({ checkFalsy: false, checkNull: false })).custom((value, { req }) => value === req.body.newPassword).withMessage('passwords dont match'),
-    sanitizeBody('notifyOnReply').toBoolean()
+    // sanitizeBody('notifyOnReply').toBoolean()
 ]

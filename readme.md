@@ -1,8 +1,8 @@
-# Connected
+# SeeSee
 
 <!-- [![time tracker](https://wakatime.com/badge/github/DanyDodson/seesee.svg)](https://wakatime.com/badge/github/DanyDodson/seesee) -->
 
-[![time tracker](https://wakatime.com/badge/github/DanyDodson/seesee.svg)](https://wakatime.com/@DanyDodson/projects/ndumdutwuw)
+[![time tracker](https://wakatime.com/badge/github/danydodson/seesee.space.svg)](https://wakatime.com/badge/github/danydodson/seesee.space)
 
 > Social network for developers
 
@@ -50,3 +50,15 @@ Dany Dodson
 ### License
 
 This project is licensed under the MIT License
+
+### root dev-deps
+concurrently husky lint-staged prettier
+
+### api deps
+@babel/cli @babel/core @babel/node @babel/preset-env agenda await-to-js bcryptjs cookie-parser cors dotenv errorhandler eventemitter3 express express-async-handler express-jwt express-validator helmet jsonwebtoken mailgun-js method-override mongoose slugify typedi winston
+
+### api dev-deps
+eslint jest nodemon
+
+### client deps
+axios jwt-decode logrocket logrocket-react moment react react-dom react-moment react-redux react-router-dom react-scripts react-toastify redux redux-devtools-extension redux-thunk uuid

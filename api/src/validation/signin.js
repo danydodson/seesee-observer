@@ -15,5 +15,5 @@ export default [
         .unescape()
         .isString()
         .exists({ checkFalsy: true, checkNull: true }).withMessage('password is required'),
-    sanitizeBody('notifyOnReply').toBoolean()
+    // sanitizeBody('notifyOnReply').toBoolean()
 ]

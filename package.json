@@ -23,17 +23,17 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/DanyDodson/seesee"
+    "url": "git+https://github.com/danydodson/seesee.git"
   },
-  "homepage": "https://github.com/DanyDodson/seesee#readme",
+  "homepage": "https://github.com/danydodson/seesee#readme",
   "engines": {
     "node": ">=12.x.x",
     "npm": ">=6.x.x"
   },
   "devDependencies": {
-    "concurrently": "^5.0.2",
-    "husky": "^3.1.0",
-    "lint-staged": "^9.5.0",
+    "concurrently": "^5.1.0",
+    "husky": "^4.2.3",
+    "lint-staged": "^10.0.7",
     "prettier": "^1.19.1"
   },
   "husky": {
@@ -46,5 +46,10 @@
       "prettier --trailing-comma es5 --single-quote --write",
       "git add"
     ]
-  }
+  },
+  "bugs": {
+    "url": "https://github.com/danydodson/seesee/issues"
+  },
+  "main": "index.js",
+  "license": "ISC"
 }

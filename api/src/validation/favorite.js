@@ -10,5 +10,5 @@ export default [
         return true
       })
     }),
-  sanitizeBody('notifyOnReply').toBoolean()
+  // sanitizeBody('notifyOnReply').toBoolean()
 ]
