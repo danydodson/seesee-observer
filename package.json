@@ -1,16 +1,8 @@
 {
   "name": "seesee",
   "version": "0.1.0",
+  "main": "index.js",
   "description": "Social network for artists",
-  "author": "Dany Dodson",
-  "keywords": [
-    "cron",
-    "jobs",
-    "js",
-    "javascript",
-    "node",
-    "express"
-  ],
   "private": true,
   "scripts": {
     "start:api": "npm start --prefix api",
@@ -20,15 +12,6 @@
     "start": "concurrently \"npm run start:api\" \"npm run start:client\"",
     "deploy:api": "git subtree push --prefix api heroku master",
     "format": "prettier --trailing-comma es5 --single-quote --write '**/*.{js,md,json}'"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/danydodson/seesee.git"
-  },
-  "homepage": "https://github.com/danydodson/seesee#readme",
-  "engines": {
-    "node": ">=12.x.x",
-    "npm": ">=6.x.x"
   },
   "devDependencies": {
     "concurrently": "^5.1.0",
@@ -47,9 +30,26 @@
       "git add"
     ]
   },
-  "bugs": {
-    "url": "https://github.com/danydodson/seesee/issues"
+  "author": "Dany Dodson",
+  "keywords": [
+    "cron",
+    "jobs",
+    "js",
+    "javascript",
+    "node",
+    "express"
+  ],
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/danydodson/seesee-observer.git"
   },
-  "main": "index.js",
-  "license": "ISC"
+  "homepage": "https://github.com/danydodson/seesee-observer#readme",
+  "engines": {
+    "node": ">=12.x.x",
+    "npm": ">=6.x.x"
+  },
+  "bugs": {
+    "url": "https://github.com/danydodson/seesee-observer/issues"
+  }
 }
