@@ -1,18 +1,14 @@
 # root
-/node_modules
-/package-lock.json
-/.vscode/settings.json
+node_modules
+.vscode/*
 
 # client
-/client/.env
-/api/logs/*.log
-/client/build
-/client/node_modules
-/client/package-lock.json
-/frontend/build/*
+client/.env
+api/logs/*.log
+client/build/*
+client/node_modules
 
 # backend
-/api/.env
-/api/*.log
-/api/node_modules
-/api/package-lock.json
+api/.env
+api/logs/*
+api/node_modules

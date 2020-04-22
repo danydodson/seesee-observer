@@ -1,0 +1,15 @@
+{
+  "title": "pract",
+  "steps": [
+    {
+      "file": "client\\jsconfig.json",
+      "line": 2,
+      "description": "somethin"
+    },
+    {
+      "file": "client\\jsconfig.json",
+      "line": 5,
+      "description": "newer"
+    }
+  ]
+}
